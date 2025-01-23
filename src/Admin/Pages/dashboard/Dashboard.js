@@ -163,12 +163,10 @@ const data = {
 // ];
 const Contant = () => {
   const [dashboard, setDashboard] = useState([
-    { title: "Total Jobs", img: briefcase, count: 0 },
-    { title: "Total Drivers", img: driver, count: 0 },
-    { title: "Total Users", img: user, count: 0 },
-    { title: "Total Subscriptions", img: subs, count: 0 },
-    { title: "Total Incomes", img: moneyspend, count: 0 },
-    { title: "Total Customers", img: hcustomer, count: 0 },
+    { title: "Total Customer's", img: driver, count: 0 },
+    { title: "Total Farmer's", img: user, count: 0 },
+    { title: "Total Collection Center's", img: subs, count: 0 },
+   
   ]);
   const [loader, setLoader] = useState(false);
 
@@ -194,7 +192,7 @@ const Contant = () => {
               });
             }
           }
-          setDashboard(newData);
+          console.log(newData);
         }
         setLoader(false);
       })

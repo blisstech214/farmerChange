@@ -28,6 +28,8 @@ import { apiAdminConfig } from "../../../utils/api";
 import Nodata from "../../../Components/nodata/Nodata";
 import Popup from "../../../Components/popup/Popup";
 import Loader from "../../../Components/Loader/Loader";
+import { FaDotCircle } from "react-icons/fa";
+import { TbMailFilled } from "react-icons/tb";
 
 const Contant = () => {
   const navigate = useNavigate();
@@ -53,13 +55,10 @@ const Contant = () => {
   const [pageData, setPageData] = React.useState({});
   let tablehead = [
     "S/N",
-    "Driver Name",
+    "Collection Center's Name",
     "Email",
-    "Contact No.",
-    "Register Type",
-    "Total Jobs",
-    "Total Earning",
-    "Job Status",
+    "Contact No",
+    "Status",
     "Action",
   ];
   const [search, setSearch] = useState("");
@@ -198,7 +197,7 @@ const Contant = () => {
                     component="h3"
                     sx={{ fontSize: "30px", fontWeight: 500 }}
                   >
-                    Collection Centre
+                   Collection Center's
                   </Typography>
                 </Box>
                 <Box>
@@ -222,7 +221,7 @@ const Contant = () => {
                       navigate(`/master/driver/drivers/add`);
                     }}
                   >
-                    Add New Collection
+                    Add New Collection Center's
                   </Button>
                 </Box>
               </Stack>
@@ -260,23 +259,25 @@ const Contant = () => {
                   </FormControl>
                   <Typography sx={{ fontSize: "13px" }}>entries</Typography>
                 </Stack>
-                <Box>
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <Typography sx={{ fontSize: "13px" }}>Search :</Typography>
-                    <FormControl size="small">
-                      <TextField
-                        sx={{ fontSize: "13px" }}
-                        size="small"
-                        id="outlined-controlled"
-                        // label="Controlled"
-                        value={search}
-                        onChange={(event) => {
-                          setSearch(event.target.value);
-                        }}
-                      />
-                    </FormControl>
-                  </Stack>
-                </Box>
+                               <Box>
+                 <Stack direction="row" spacing={1} alignItems="center">
+                   <Typography sx={{ fontSize: "13px" }}>Search :</Typography>
+                   <FormControl size="small">
+                     <input
+                       sx={{
+                         fontSize: "13px",
+                         border:"1px solid",
+                         borderRadius:"10px",
+                       }}
+                       
+                       value={search}
+                       onChange={(event) => {
+                         setSearch(event.target.value);
+                       }}
+                     />
+                   </FormControl>
+                 </Stack>
+               </Box>
               </Stack>
               <div>
                 <Box sx={{ mt: 4, minHeight: "100%" }}>
@@ -359,7 +360,7 @@ const Contant = () => {
                                 >
                                   {el?.mobile || "N/A"}
                                 </td>
-                                <td
+                                {/* <td
                                   style={{
                                     fontSize: "14px",
                                     textAlign: "center",
@@ -367,17 +368,9 @@ const Contant = () => {
                                   }}
                                 >
                                   {el?.register_type || "N/A"}
-                                </td>
-                                <td
-                                  style={{
-                                    fontSize: "14px",
-                                    textAlign: "center",
-                                    verticalAlign: "middle",
-                                  }}
-                                >
-                                  {el?.total_jobs}
-                                </td>
-                                <td
+                                </td> */}
+                             
+                                {/* <td
                                   style={{
                                     fontSize: "14px",
                                     textAlign: "center",
@@ -385,154 +378,153 @@ const Contant = () => {
                                   }}
                                 >
                                   {el?.total_amount || "N/A"}
-                                </td>
-                                <td
-                                  style={{
-                                    fontSize: "14px",
-                                    textAlign: "center",
-                                    verticalAlign: "middle",
-                                  }}
+                                </td> */}
+                               <td
+                               style={{
+                                fontSize: "14px",
+                                textAlign: "center",
+                                verticalAlign: "middle",
+                                color: el?.status === 0 ? "#FF0000" : el?.status === 1 || el?.status === 2 ? "#008000":"#FF0000",
+                                }}
                                 >
                                   {el?.status === 0
-                                    ? "Verify"
-                                    : el?.status === 1
-                                    ? "Active"
-                                    : el?.status === 2
-                                    ? "Inactive"
-                                    : "N/A"}
-                                </td>
+                                  ? "Inactive"
+                                  : el?.status === 1
+                                  ? "active"
+                                  : el?.status === 2
+                                  ? "active"
+                                  : "N/A"
+                                  }
+                                  </td>
+
                                 {/* <td style={{ width: "20vh" }}>
                               {moment(el?.createdAt).format("DD/MM/YYYY")}
                             </td> */}
-                                <td style={{ textAlign: "center" }}>
-                                  <Dropdown>
-                                    <OverlayTrigger
-                                      rootClose
-                                      trigger="click"
-                                      placement="bottom"
-                                      overlay={
-                                        <Popover id="popover-basic">
-                                          <Popover.Body>
-                                            <Stack gap={2}>
-                                              <Dropdown.Item
-                                                onClick={(e) => {
-                                                  navigate(
-                                                    `/master/driver/drivers/view/${el.user_id}`
-                                                  );
-                                                }}
-                                              >
-                                                <MdRemoveRedEye size={18} />{" "}
-                                                View
-                                              </Dropdown.Item>
-                                              <Button
-                                                // disabled
-                                                size="sm"
-                                                variant="success"
-                                                onClick={() =>
-                                                  updateStatus(
-                                                    el.user_id,
-                                                    el?.status
-                                                  )
-                                                }
-                                                style={
-                                                  el?.status === 0
-                                                    ? {
-                                                        // red
-                                                        backgroundColor: "red",
-                                                        opacity: "0.7",
-                                                        color: "#fff",
-                                                        borderColor: "#dc3545",
-                                                        width: "10vh",
-                                                        fontSize: "12px",
-                                                        lineHeight: "1.5",
-                                                        borderRadius: ".2rem",
-                                                        padding:
-                                                          ".375rem .75rem",
-                                                      }
-                                                    : el?.status === 1
-                                                    ? {
-                                                        // green
-                                                        backgroundColor:
-                                                          "rgb(12 168 48)",
-                                                        opacity: "0.7",
-                                                        color: "#fff",
-                                                        borderColor: "#28a745",
-                                                        width: "10vh",
-                                                        fontSize: "12px",
-                                                        lineHeight: "1.5",
-                                                        borderRadius: ".2rem",
-                                                        padding:
-                                                          ".375rem .75rem",
-                                                      }
-                                                    : el?.status === 2
-                                                    ? {
-                                                        // pink
-                                                        backgroundColor:
-                                                          "#6c757d",
-                                                        opacity: "0.7",
-                                                        color: "#fff",
-                                                        borderColor: "#ff69b4",
-                                                        width: "10vh",
-                                                        fontSize: "12px",
-                                                        lineHeight: "1.5",
-                                                        borderRadius: ".2rem",
-                                                        padding:
-                                                          ".375rem .75rem",
-                                                      }
-                                                    : {
-                                                        // default grey
-                                                        backgroundColor:
-                                                          "#6c757d",
-                                                        opacity: "0.7",
-                                                        color: "#fff",
-                                                        borderColor: "#6c757d",
-                                                        width: "10vh",
-                                                        fontSize: "12px",
-                                                        lineHeight: "1.5",
-                                                        borderRadius: ".2rem",
-                                                        padding:
-                                                          ".375rem .75rem",
-                                                      }
-                                                }
-                                              >
-                                                {el?.status === 0
-                                                  ? "Verify"
-                                                  : el?.status === 1
-                                                  ? "Active"
-                                                  : el?.status === 2
-                                                  ? "Inactive"
-                                                  : "Unknown Status"}
-                                              </Button>
-                                              <Dropdown.Item
-                                                onClick={() => {
-                                                  navigate(
-                                                    `/master/driver/drivers/edit/${el?.user_id}`
-                                                  );
-                                                }}
-                                              >
-                                                <MdMode size={18} /> Edit
-                                              </Dropdown.Item>
-                                              <Dropdown.Item
-                                                onClick={() => {
-                                                  handleDelete(el.user_id);
-                                                }}
-                                              >
-                                                <MdDelete size={18} /> Delete
-                                              </Dropdown.Item>
-                                            </Stack>
-                                          </Popover.Body>
-                                        </Popover>
-                                      }
-                                    >
-                                      <Dropdown.Toggle
-                                        variant="light"
-                                        id="dropdown-basic"
-                                      >
-                                        <BsThreeDotsVertical />
-                                      </Dropdown.Toggle>
-                                    </OverlayTrigger>
-                                  </Dropdown>
-                                </td>
+                               <td style={{ textAlign: "center" }}>
+  <Dropdown>
+    <OverlayTrigger
+      rootClose
+      trigger="click"
+      placement="bottom"
+      overlay={
+        <Popover id="popover-basic">
+          <Popover.Body style={{ padding: "10px" }}>
+            <Stack gap={2}>
+              <Dropdown.Item
+                onClick={() => {
+                  navigate(`/master/driver/drivers/view/${el.user_id}`);
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "8px 12px",
+                  fontSize: "14px",
+                  lineHeight: "1.5",
+                }}
+              >
+                <MdRemoveRedEye size={18} />
+                View
+              </Dropdown.Item>
+
+              <Button
+                size="sm"
+                variant="success"
+                onClick={() => updateStatus(el.user_id, el?.status)}
+                style={{
+                  display: "flex",
+                  color:"#ffffff ",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  width: "100%",
+                  fontSize: "14px",
+                  lineHeight: "1.5",
+                
+                  backgroundColor:
+                    el?.status === 0
+                      ? "#008000"
+                      : el?.status === 1 || el?.status === 2
+                      ? "#FF0000"
+                      : "#6c757d",
+                  borderColor: "#ccc",
+                  padding: ".375rem .75rem",
+                  borderRadius: ".2rem",
+                  
+                }}
+              >
+                <FaDotCircle />
+                {el?.status === 0
+                  ? "Active"
+                  : el?.status === 1
+                  ? "Inactive"
+                  : el?.status === 2
+                  ? "Inactive"
+                  : "Unknown Status"}
+              </Button>
+
+              <Dropdown.Item
+                onClick={() => {
+                  handleDelete(el.user_id);
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "8px 12px",
+                  fontSize: "14px",
+                  lineHeight: "1.5",
+                }}
+              >
+                <TbMailFilled size={18} />
+                Mail
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                onClick={() => {
+                  navigate(`/master/driver/drivers/edit/${el?.user_id}`);
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "8px 12px",
+                  fontSize: "14px",
+                  lineHeight: "1.5",
+                }}
+              >
+                <MdMode size={18} />
+                Edit
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                onClick={() => {
+                  handleDelete(el.user_id);
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "8px 12px",
+                  fontSize: "14px",
+                  lineHeight: "1.5",
+                }}
+              >
+                <MdDelete size={18} />
+                Delete
+              </Dropdown.Item>
+            </Stack>
+          </Popover.Body>
+        </Popover>
+      }
+    >
+      <Dropdown.Toggle variant="light" id="dropdown-basic">
+        <BsThreeDotsVertical />
+      </Dropdown.Toggle>
+    </OverlayTrigger>
+  </Dropdown>
+</td>
+
                               </tr>
                             );
                           })}

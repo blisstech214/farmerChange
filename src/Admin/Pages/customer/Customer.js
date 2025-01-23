@@ -203,7 +203,7 @@ const Contant = () => {
                     component="h3"
                     sx={{ fontSize: "30px", fontWeight: 500 }}
                   >
-                    Customers ,
+                    Customers's
                   </Typography>
                 </Box>
                 <Box>

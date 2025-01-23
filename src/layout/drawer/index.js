@@ -18,7 +18,9 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { AppBar, Drawer, DrawerHeader } from "../styledLayout";
 import faceImg from "../../Assets/images/faces/face28.jpg";
 import { BiSolidBriefcase, BiSolidContact, BiSupport } from "react-icons/bi";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";import { IoMdContact } from "react-icons/io";
+
+
 import {
   FaUserAlt,
   FaUserCog,
@@ -317,15 +319,16 @@ const MuiDrawer = ({ children }) => {
             </div>
 
             <IconButton
-              size="small"
-              sx={{ ml: 2 }}
-              onClick={handleClick}
-              aria-controls={openDropDown ? "account-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={openDropDown ? "true" : undefined}
-            >
-              <Avatar alt="profile" src={faceImg} />
-            </IconButton>
+  size="small"
+  sx={{ ml: 2 }}
+  onClick={handleClick}
+  aria-controls={openDropDown ? "account-menu" : undefined}
+  aria-haspopup="true"
+  aria-expanded={openDropDown ? "true" : undefined}
+>
+  <IoMdContact size={50} alt="profile" />
+</IconButton>
+
             <Menu
               anchorEl={anchorEl}
               id="account-menu"

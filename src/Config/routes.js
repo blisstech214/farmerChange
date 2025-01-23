@@ -110,7 +110,7 @@ const Routing = () => {
       />
       {/* driver start */}
       <Route
-        path="/master/Customers/Customers"
+        path="/master/User/Customers"
         element={
           <>
             <AdminLayout>
@@ -213,7 +213,7 @@ const Routing = () => {
       {/* user end */}
       {/* collection center */}
       <Route
-        path="/master/collection/collection"
+        path="/master/User/collection"
         element={
           <>
             <AdminLayout>
@@ -225,7 +225,7 @@ const Routing = () => {
       {/* customer start */}
     {/* Farmer */}
     <Route
-        path="/master/farmer/farmer"
+        path="/master/User/farmer"
         element={
           <>
             <AdminLayout>
@@ -577,7 +577,7 @@ const Routing = () => {
         }
       />
       <Route
-        path="/master/subscription/subscriptions/:routeName/:id"
+        path="/master/subscription/subscription"
         element={
           <Suspense>
             <AdminLayout>

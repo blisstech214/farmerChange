@@ -10,7 +10,7 @@ import TreeItem from "@mui/lab/TreeItem";
 const RolePermission = ({ permissions = [], formik }) => {
   const [checked, setChecked] = React.useState(formik.values.menus || []);
   const [expanded, setExpanded] = React.useState([]);
-  const [selectAll, setSelectAll] = React.useState(false);
+  const [selectAll, setSelectAll] = React.useState(true);
 
   const handleCheckedChange = (event, newValue, menuItem) => {
     let checkedAllParent = [];
@@ -81,7 +81,7 @@ const RolePermission = ({ permissions = [], formik }) => {
       setSelectAll(true);
     } else {
       setChecked(["dashboard-subheader-root", "management-subheader-root"]);
-      setSelectAll(false);
+      setSelectAll(true);
       formik.setFieldValue("menus", []);
     }
   };
