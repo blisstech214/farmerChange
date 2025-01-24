@@ -55,7 +55,7 @@ const Contant = () => {
   const [pageData, setPageData] = React.useState({});
   let tablehead = [
     "S/N",
-    "Customer's Name",
+    "Collection Center Name",
     "Email",
     "Contact No",
     "Status",
@@ -197,7 +197,7 @@ const Contant = () => {
                     component="h3"
                     sx={{ fontSize: "30px", fontWeight: 500 }}
                   >
-                   Customer's
+                   Collection Center's
                   </Typography>
                 </Box>
                 <Box>
@@ -221,7 +221,7 @@ const Contant = () => {
                       navigate(`/master/driver/drivers/add`);
                     }}
                   >
-                    Add New Customer's
+                    Add New Collection Center's
                   </Button>
                 </Box>
               </Stack>
