@@ -2,11 +2,11 @@ import React, { useEffect, Component, useState } from "react";
 import Button from "@mui/material/Button";
 import Table from "react-bootstrap/Table";
 import AddIcon from "@mui/icons-material/Add";
-import "../../admin.css";
+import "../../../admin.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import Sidebar from "../../SideNav/sideBar";
+import Sidebar from "../../../SideNav/sideBar";
 import Dropdown from "react-bootstrap/Dropdown";
-import TablePagination from "../../../Components/Pagination/Pagination";
+// import TablePagination from "../../../../Components/Pagination/Pagination";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import {
   Box,
@@ -23,11 +23,11 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { MdRemoveRedEye, MdDelete, MdMode } from "react-icons/md";
-import CustomSnackbar from "../../../Components/notify/Snackbar";
-import { apiAdminConfig } from "../../../utils/api";
-import Nodata from "../../../Components/nodata/Nodata";
-import Popup from "../../../Components/popup/Popup";
-import Loader from "../../../Components/Loader/Loader";
+import CustomSnackbar from "../../../../Components/notify/Snackbar";
+import { apiAdminConfig } from "../../../../utils/api";
+import Nodata from "../../../../Components/nodata/Nodata";
+import Popup from "../../../../Components/popup/Popup";
+import Loader from "../../../../Components/Loader/Loader";
 import { FaDotCircle } from "react-icons/fa";
 import { TbMailFilled } from "react-icons/tb";
 
@@ -55,7 +55,7 @@ const Contant = () => {
   const [pageData, setPageData] = React.useState({});
   let tablehead = [
     "S/N",
-    "Collection Center's Name",
+    "Customer's Name",
     "Email",
     "Contact No",
     "Status",
@@ -197,7 +197,7 @@ const Contant = () => {
                     component="h3"
                     sx={{ fontSize: "30px", fontWeight: 500 }}
                   >
-                   Collection Center's
+                   Customer's
                   </Typography>
                 </Box>
                 <Box>
@@ -221,7 +221,7 @@ const Contant = () => {
                       navigate(`/master/driver/drivers/add`);
                     }}
                   >
-                    Add New Collection Center's
+                    Add New Customer's
                   </Button>
                 </Box>
               </Stack>
@@ -293,13 +293,13 @@ const Contant = () => {
                           width: "100%",
                         }}
                       >
-                        <tr style={{ width: "100%" }}>
+                        <tr style={{ width: "10%" }}>
                           {tablehead.map((el, id) => {
                             return (
                               <th
                                 key={id}
                                 style={{
-                                  textAlign: "center",
+                                  textAlign: "start",
                                   verticalAlign: "middle",
                                   fontSize: "14px",
                                 }}
@@ -323,7 +323,7 @@ const Contant = () => {
                                 <td
                                   style={{
                                     fontSize: "14px",
-                                    textAlign: "center",
+                                    textAlign: "start",
                                     verticalAlign: "middle",
                                   }}
                                 >
@@ -332,7 +332,7 @@ const Contant = () => {
                                 <td
                                   style={{
                                     fontSize: "14px",
-                                    textAlign: "center",
+                                    textAlign: "start",
                                     verticalAlign: "middle",
                                     cursor: "pointer",
                                   }}
@@ -345,7 +345,7 @@ const Contant = () => {
                                 <td
                                   style={{
                                     fontSize: "14px",
-                                    textAlign: "center",
+                                    textAlign: "start",
                                     verticalAlign: "middle",
                                   }}
                                 >
@@ -354,7 +354,7 @@ const Contant = () => {
                                 <td
                                   style={{
                                     fontSize: "14px",
-                                    textAlign: "center",
+                                    textAlign: "start",
                                     verticalAlign: "middle",
                                   }}
                                 >
@@ -379,23 +379,32 @@ const Contant = () => {
                                 >
                                   {el?.total_amount || "N/A"}
                                 </td> */}
-                               <td
-                               style={{
-                                fontSize: "14px",
-                                textAlign: "center",
-                                verticalAlign: "middle",
-                                color: el?.status === 0 ? "#FF0000" : el?.status === 1 || el?.status === 2 ? "#008000":"#FF0000",
-                                }}
-                                >
-                                  {el?.status === 0
-                                  ? "Inactive"
-                                  : el?.status === 1
-                                  ? "active"
-                                  : el?.status === 2
-                                  ? "active"
-                                  : "N/A"
-                                  }
-                                  </td>
+<td
+  style={{
+    fontSize: "14px",
+    textAlign: "center",
+    verticalAlign: "middle",
+    color: el?.status === 0 ? "#FF0000" : el?.status === 1 ? "#008000" : "#6c757d", // Text color
+    backgroundColor:
+      el?.status === 0
+        ? "#FFE5E5" // Mild red background
+        : el?.status === 1
+        ? "#E5F9E5" // Mild green background
+        : "#F2F2F2", // Neutral background
+    padding: "8px 12px",
+    borderRadius: "8px",
+    margin: "4px",
+    border: "1px solid #ccc",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px",
+  }}
+>
+  <FaDotCircle />
+  {el?.status === 0 ? "Deactive" : el?.status === 1 ? "Active" : "N/A"}
+</td>
+
 
                                 {/* <td style={{ width: "20vh" }}>
                               {moment(el?.createdAt).format("DD/MM/YYYY")}
@@ -426,42 +435,32 @@ const Contant = () => {
                 <MdRemoveRedEye size={18} />
                 View
               </Dropdown.Item>
-
               <Button
-                size="sm"
-                variant="success"
-                onClick={() => updateStatus(el.user_id, el?.status)}
-                style={{
-                  display: "flex",
-                  color:"#ffffff ",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  width: "100%",
-                  fontSize: "14px",
-                  lineHeight: "1.5",
-                
-                  backgroundColor:
-                    el?.status === 0
-                      ? "#008000"
-                      : el?.status === 1 || el?.status === 2
-                      ? "#FF0000"
-                      : "#6c757d",
-                  borderColor: "#ccc",
-                  padding: ".375rem .75rem",
-                  borderRadius: ".2rem",
-                  
-                }}
-              >
-                <FaDotCircle />
-                {el?.status === 0
-                  ? "Active"
-                  : el?.status === 1
-                  ? "Inactive"
-                  : el?.status === 2
-                  ? "Inactive"
-                  : "Unknown Status"}
-              </Button>
+  size="sm"
+  variant="success"
+  onClick={() => updateStatus(el.user_id, el?.status === 0 ? 1 : 0)} // Toggle status
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px",
+    width: "100%",
+    fontSize: "14px",
+    lineHeight: "1.5",
+    color: el?.status === 0 ? "#008000" : "#FF0000", // Opposite color for action
+    backgroundColor:
+      el?.status === 0
+        ? "#E5F9E5" // Mild green background for "Activate"
+        : "#FFE5E5", // Mild red background for "Deactivate"
+    borderColor: "#ccc",
+    padding: ".375rem .75rem",
+    borderRadius: ".2rem",
+  }}
+>
+  <FaDotCircle />
+  {el?.status === 0 ? "Activate" : "Deactivate"} {/* Opposite action text */}
+</Button>
+
 
               <Dropdown.Item
                 onClick={() => {

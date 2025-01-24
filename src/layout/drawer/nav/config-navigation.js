@@ -16,6 +16,8 @@ import {
   FaUserCheck,
   FaUserCog,
 } from "react-icons/fa";
+import { FaClipboardList } from "react-icons/fa";
+
 import { IoMdSettings } from "react-icons/io";
 import {
   BsEnvelopePaperFill,
@@ -114,8 +116,8 @@ const navConfig = [
       {
         permission: "customer-root",
         title: "Order Management",
-        icon: <FaUser size={16} />,
-        path: "/master/customer",
+        icon: <FaClipboardList size={16} />,
+        path: "/master/customer/Order",
          // children: [
         //   {
         //     permission: "customer-company",

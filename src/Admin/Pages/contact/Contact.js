@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import moment from "moment";
-import "../../admin.css";
+import "../../../siginin/admin.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import AddIcon from "@mui/icons-material/Add";
 import {

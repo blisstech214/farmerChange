@@ -2,7 +2,7 @@ import React, { useEffect, Component, useState } from "react";
 import Button from "@mui/material/Button";
 import Table from "react-bootstrap/Table";
 import AddIcon from "@mui/icons-material/Add";
-import "../../admin.css";
+import "../../../siginin/admin.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Sidebar from "../../SideNav/sideBar";
 import Loader from "../../../Components/Loader/Loader";

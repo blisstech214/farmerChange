@@ -2,9 +2,8 @@ import React, { Component, useState } from "react";
 import Button from "@mui/material/Button";
 import Table from "react-bootstrap/Table";
 import AddIcon from "@mui/icons-material/Add";
-import "../../admin.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import Sidebar from "../../SideNav/sideBar";
+import Sidebar from "../../../Admin/SideNav/sideBar";
 import Dropdown from "react-bootstrap/Dropdown";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import {

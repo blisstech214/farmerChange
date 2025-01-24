@@ -2,12 +2,12 @@ import React, { Component, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Image from "react-bootstrap/Image";
 import Col from "react-bootstrap/Col";
-import "../../admin.css";
-import Sidebar from "../../SideNav/sideBar";
+import "../../../siginin/admin.css";
+import Sidebar from "../../../SideNav/sideBar";
 import Loader from "../../../Components/Loader/Loader";
 import Form from "react-bootstrap/Form";
-import { useNavigate, useParams } from "react-router-dom";
-import { Formik, useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
 import { apiAdminConfig } from "../../../utils/api";
 import { useSnackbar } from "../../../provider/snackbar";
 import { BsX } from "react-icons/bs";
@@ -23,6 +23,7 @@ import FastRewind from "@mui/icons-material/FastRewind";
 import {
   AccountBox,
   AccountCircle,
+  Apartment,
   Cached,
   CalendarToday,
   CheckCircle,
@@ -31,21 +32,29 @@ import {
   Mail,
   Person,
   PhoneAndroid,
+  Security,
 } from "@mui/icons-material";
 import moment from "moment";
 import { PasswordBox } from "../../../Components/form";
 
 const Contant = () => {
   let navigate = useNavigate();
-  let { id } = useParams();
   const snackbar = useSnackbar();
+  const [loader, setLoader] = useState(false);
+  const [options, setOptions] = useState([]);
+  const [citylist, setCitylist] = useState([
+    {
+      value: "city",
+      label: "City",
+    },
+  ]);
   const [userType, setUserType] = useState([
     {
       value: "0",
       label: "Choose User Type",
     },
     {
-      value: "driver",
+      value: "individual",
       label: "Individual",
     },
     {
@@ -59,52 +68,85 @@ const Contant = () => {
       label: "Choose User Type",
     },
     {
-      value: "admin",
+      value: "Admin",
       label: "Admin",
     },
     {
-      value: "portal",
+      value: "Portal",
       label: "Portal",
     },
   ]);
-  const [citylist, setCitylist] = useState([
-    {
-      value: "city",
-      label: "City",
-    },
-  ]);
-  
-  const [loader, setLoader] = useState(false);
-  const [options, setOptions] = useState([]);
   const [clinics, setClinics] = React.useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [licenceFile, setLicenceFile] = useState(null);
   const [showCompanyDropdown, setShowCompanyDropdown] = useState(false);
 
+  const handleFileUpload = (event) => {
+    setSelectedFile(event.target.files[0]);
+    // You can perform any additional logic here before making an API call, if needed.
+  };
 
+  const handleLiecenceFileUpload = (event) => {
+    setLicenceFile(event.target.files[0]);
+    // You can perform any additional logic here before making an API call, if needed.
+  };
 
+  const handleRemoveFile = () => {
+    setSelectedFile(null);
+    const fileInput = document.getElementById("fileInput");
+    if (fileInput) {
+      fileInput.value = null;
+    }
+  };
 
+  const handleRemoveLicenceFile = () => {
+    setLicenceFile(null);
+    const fileInput = document.getElementById("fileInput1");
+    if (fileInput) {
+      fileInput.value = null;
+    }
+  };
 
+  const getClinics = async () => {
+    // await apiAdminConfig.get('asset').then((response) => {
+    //   if (response.status) {
+    //     let clinicsData = []
+    //     response?.data && response?.data?.data.forEach((element) => {
+    //       clinicsData.push({
+    //         clinicName: element?.clinicName,
+    //         _id: element?._id,
+    //       })
+    //     })
+    //     setClinics(clinicsData)
+    //   }
+    // })
+  };
 
+  React.useEffect(() => {
+    getClinics();
+  }, []);
 
   const formik = useFormik({
     initialValues: {
       user_name: "",
       driver_type: "individual",
+      user_type: "driver",
       register_type: "admin",
       mobile: "",
       password: "",
+      password_confirmation: "",
       license_expiry: "",
       address: "",
       city: "",
       zip_code: "",
       status: "",
       working_for: "admin",
-      user_type: "driver",
       contact_number: "",
       email: "",
+      profile_img: "",
       licence_front: "",
       licence_back: "",
+      profile_img_url: "",
       driving_license_url_front: "",
       driving_license_url_back: "",
       address_proof: "",
@@ -136,16 +178,58 @@ const Contant = () => {
       } else if (!/^[0-9]{10}$/.test(values.mobile)) {
         errors.mobile = "Please enter valid number";
       }
+      if (!values.password) {
+        errors.password = "Password is required";
+      }
+
+      if (!values.password_confirmation) {
+        errors.password_confirmation = "Confirm password is required";
+      }
+
+      if (
+        values.password &&
+        values.password_confirmation &&
+        values.password !== values.password_confirmation
+      ) {
+        errors.password_confirmation =
+          "Confirm password not match with previous password";
+      }
+
       if (!values.zip_code) {
         errors.zip_code = "Pincode is required";
       } else if (!/^[a-zA-Z0-9]{5,8}$/.test(values.zip_code)) {
         errors.zip_code = "Please enter valid pincode";
       }
-
-      // if (!values.password) {
-      //   errors.password = "Password is required";
-      // }
-
+      if (!values.profile_img) {
+        errors.profile_img = "Driver Photo is required";
+      }
+      if (!values.licence_front) {
+        errors.licence_front = "Driver Licence is required";
+      }
+      if (!values.licence_back) {
+        errors.licence_back = "Driver Licence is required";
+      }
+      if (!values.address_proof) {
+        errors.address_proof = "Address proof is required";
+      }
+      if (!values.insurance_cert) {
+        errors.insurance_cert = "Insurance Certificate is required";
+      }
+      if (!values.transit_cert) {
+        errors.transit_cert = "Transit Certificate is required";
+      }
+      if (!values.liability_cert) {
+        errors.liability_cert = "Public Liability Certificate is required";
+      }
+      if (!values.v5c_cert) {
+        errors.v5c_cert = "V5C Certificate is required";
+      }
+      if (!values.dvia_cert) {
+        errors.dvia_cert = "Dvia Certificate is required";
+      }
+      if (!values.nationality_cert) {
+        errors.nationality_cert = "Nationality Proof is required";
+      }
       return errors;
     },
     onSubmit: async (values, { setErrors }) => {
@@ -156,10 +240,9 @@ const Contant = () => {
       formData.append("user_type", values?.user_type);
       formData.append("register_type", values?.register_type);
       formData.append("mobile", values?.mobile);
-      formData.append("plan_start_date", values?.plan_start_date);
-      formData.append("plan_end_date", values?.plan_end_date);
 
-      // formData.append("password", values?.password);
+      formData.append("password", values?.password);
+      formData.append("password_confirmation", values?.password_confirmation);
       formData.append("license_expiry", values?.license_expiry);
       formData.append("address", values?.address);
       formData.append("city", values?.city);
@@ -168,6 +251,7 @@ const Contant = () => {
       formData.append("working_for", values?.working_for);
       formData.append("contact_number", values?.contact_number);
       formData.append("email", values?.email);
+      formData.append("profile_img", values?.profile_img);
       formData.append("licence_front", values?.licence_front);
       formData.append("licence_back", values?.licence_back);
       formData.append("address_proof", values?.address_proof);
@@ -178,8 +262,9 @@ const Contant = () => {
       formData.append("dvia_cert", values?.dvia_cert);
       formData.append("nationality_cert", values?.nationality_cert);
 
+      console.log("formData", formData);
       await apiAdminConfig
-        .post(`/api/auth/master/driver/update/${id}`, formData)
+        .post("/api/auth/master/driver/add", formData, { setErrors })
         .then((response) => {
           if (response?.status === 200) {
             navigate(-1);
@@ -215,72 +300,6 @@ const Contant = () => {
         });
     },
   });
-  const bindData = async () => {
-    await apiAdminConfig
-      .get(`api/auth/master/driver/edit/${id}`)
-      .then((response) => {
-        if (response.status === 200) {
-          if (response?.data?.view_data?.length > 0) {
-            let data = response?.data?.view_data[0];
-            for (const [key] of Object.entries(formik.values)) {
-              if (key === "license_expiry") {
-                formik.setFieldValue(
-                  "license_expiry",
-                  data?.license_expiry ? moment(data.license_expiry, "DD-MM-YYYY").format("YYYY-MM-DD") : null
-                );
-              } else {
-                formik.setFieldValue(key, data[key]);
-              }
-            }
-            
-            formik.setFieldValue(
-              "driving_license_url_front",
-              `${data?.base_url}${data?.licence_front}`
-            );
-            formik.setFieldValue(
-              "driving_license_url_back",
-              `${data?.base_url}${data?.licence_back}`
-            );
-            formik.setFieldValue(
-              "address_proof_url",
-              `${data?.base_url}${data?.address_proof}`
-            );
-            formik.setFieldValue(
-              "insurance_cert_url",
-              `${data?.base_url}${data?.insurance_cert}`
-            );
-            formik.setFieldValue(
-              "transit_cert_url",
-              `${data?.base_url}${data?.transit_cert}`
-            );
-            formik.setFieldValue(
-              "liability_cert_url",
-              `${data?.base_url}${data?.liability_cert}`
-            );
-            formik.setFieldValue(
-              "v5c_cert_url",
-              `${data?.base_url}${data?.v5c_cert}`
-            );
-            formik.setFieldValue(
-              "dvia_cert_url",
-              `${data?.base_url}${data?.dvia_cert}`
-            );
-            formik.setFieldValue(
-              "nationality_cert_url",
-              `${data?.base_url}${data?.nationality_cert}`
-            );
-          }
-        }
-      });
-  };
-
-  React.useEffect(() => {
-    if (id) {
-      bindData(id);
-    }
-  }, [id]);
-
-  console.log("formik.values", formik.values);
 
   return (
     <>
@@ -307,7 +326,7 @@ const Contant = () => {
                     component="h3"
                     sx={{ fontSize: "30px", fontWeight: 500 }}
                   >
-                    Edit Driver
+                    Add Driver
                   </Typography>
                 </Box>
                 <Box>
@@ -395,7 +414,6 @@ const Contant = () => {
                           </Typography>
                         </Stack>
                         <Form.Control
-                          disabled={true}
                           type="email"
                           value={formik.values.email}
                           name="email"
@@ -436,12 +454,16 @@ const Contant = () => {
                           </Typography>
                         </Stack>
                         <Form.Control
-                          disabled={true}
                           type="tel"
                           maxLength="11"
                           value={formik.values.mobile}
                           name="mobile"
-                          onChange={formik.handleChange}
+                          onChange={(e) => {
+                            formik.setFieldValue(
+                              `mobile`,
+                              e.target.value.replace(/\D/gm, "")
+                            );
+                          }}
                           placeholder="Enter Contact Number"
                           className="mb-0"
                           isInvalid={
@@ -495,7 +517,7 @@ const Contant = () => {
                         )}
                       </Form.Group>
                     </Col>
-                    
+                 
                     <Col xs={12} md={6} lg={4}>
                       <Form.Group
                         style={{ textAlign: "left" }}
@@ -559,16 +581,16 @@ const Contant = () => {
                           value={formik.values.zip_code}
                           name="zip_code"
                           maxLength={8}
-                        onChange={(e) => {
-                          const sanitizedValue = e.target.value.replace(
-                            /\W/g,
-                            ""
-                          );
-                          const limitedValue = sanitizedValue.slice(0, 8); // Limit to a maximum of 8 characters
-                          if (/^[a-zA-Z0-9]{5,8}$/.test(limitedValue)) {
-                            formik.setFieldValue("zip_code", limitedValue);
-                          }
-                        }}
+                          onChange={(e) => {
+                            const sanitizedValue = e.target.value.replace(
+                              /\W/g,
+                              ""
+                            );
+                            formik.setFieldValue(
+                              "zip_code",
+                              sanitizedValue.slice(0, 8)
+                            ); // Limit to a maximum of 8 characters
+                          }}
                           placeholder="Enter Pincode"
                           className="mb-0"
                           isInvalid={
@@ -645,7 +667,7 @@ const Contant = () => {
                     <Col xs={12} md={6} lg={4}>
                       <Form.Group
                         style={{ textAlign: "left" }}
-                        controlId="registerType"
+                        controlId="registertype"
                       >
                         <Stack
                           direction="row"
@@ -673,6 +695,10 @@ const Contant = () => {
                                   "register_type",
                                   e.target.value
                                 );
+                                if (e.target.value === "company") {
+                                  setShowCompanyDropdown(true);
+                                }
+                                setShowCompanyDropdown(false);
                               }
                             }}
                             isInvalid={
@@ -697,6 +723,7 @@ const Contant = () => {
                         )}
                       </Form.Group>
                     </Col>
+
                     <Col xs={12} md={4} lg={4}>
                       <Form.Group
                         style={{ textAlign: "left" }}
@@ -721,6 +748,7 @@ const Contant = () => {
                         <Form.Control
                           type="date"
                           name="license_expiry"
+                          // max={moment().format("YYYY-MM-DD")}
                           value={formik.values.license_expiry}
                           onChange={(e) =>
                             formik.setFieldValue(
@@ -734,15 +762,176 @@ const Contant = () => {
                             formik.touched.license_expiry &&
                             formik.errors.license_expiry
                           }
-                          // max={new Date()}
                         />
                         <Form.Control.Feedback type="invalid">
                           {formik.errors.license_expiry}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
+                    <Col xs={12} md={4} lg={4}>
+                      <Form.Group
+                        style={{ textAlign: "left" }}
+                        controlId="license_expiry"
+                      >
+                        <Stack
+                          direction="row"
+                          spacing={1.5}
+                          mb={1}
+                          alignItems="center"
+                        >
+                          <Lock fontSize="small" color="primary" />
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              fontWeight: 700,
+                            }}
+                          >
+                            Password
+                          </Typography>
+                        </Stack>
+                        <PasswordBox
+                          fullWidth
+                          size="small"
+                          name="password"
+                          value={formik.values.password}
+                          onChange={formik.handleChange}
+                          helperText={
+                            formik.touched.password && formik.errors.password
+                          }
+                        />
+                      </Form.Group>
+                    </Col>
 
-                  
+                    <Col xs={12} md={4} lg={4}>
+                      <Form.Group
+                        style={{ textAlign: "left" }}
+                        controlId="license_expiry"
+                      >
+                        <Stack
+                          direction="row"
+                          spacing={1.5}
+                          mb={1}
+                          alignItems="center"
+                        >
+                          <Lock fontSize="small" color="primary" />
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              fontWeight: 700,
+                            }}
+                          >
+                            Confirm Password
+                          </Typography>
+                        </Stack>
+                        <PasswordBox
+                          fullWidth
+                          size="small"
+                          name="password_confirmation"
+                          value={formik.values.password_confirmation}
+                          onChange={formik.handleChange}
+                          helperText={
+                            formik.touched.password_confirmation &&
+                            formik.errors.password_confirmation
+                          }
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} md={4} lg={4}>
+                      <Form.Group
+                        style={{ textAlign: "left" }}
+                        controlId="profile"
+                      >
+                        <Stack
+                          direction="row"
+                          spacing={1.5}
+                          mb={1}
+                          alignItems="center"
+                        >
+                          <AccountCircle fontSize="small" color="primary" />
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              fontWeight: 700,
+                            }}
+                          >
+                            Driver Photo
+                          </Typography>
+                        </Stack>
+
+                        {!formik.values.profile_img && (
+                          <Form.Control
+                            id="fileInput"
+                            name="profile_img"
+                            value=""
+                            type="file"
+                            accept=".png, .jpg, .jpeg"
+                            className="mb-0"
+                            onChange={(e) => {
+                              formik.setFieldValue(
+                                "profile_img",
+                                e.target.files[0]
+                              );
+                              formik.setFieldValue(
+                                "profile_img_url",
+                                URL.createObjectURL(e.target.files[0])
+                              );
+                            }}
+                            isInvalid={
+                              formik.touched.profile_img &&
+                              formik.errors.profile_img
+                            }
+                          />
+                        )}
+
+                        <Form.Control.Feedback type="invalid">
+                          {formik.errors.profile_img}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+
+                      {formik.values.profile_img_url && (
+                        <Box sx={{ display: "flex" }}>
+                          <div
+                            style={{
+                              position: "relative",
+                              display: "inline-block",
+                            }}
+                          >
+                            <Image
+                              style={{ margin: "10px" }}
+                              src={formik.values.profile_img_url}
+                              alt={formik.values.profile_img.name}
+                              width="150"
+                              height="150"
+                              thumbnail
+                            />
+
+                            <Button
+                              variant="link"
+                              style={{
+                                position: "absolute",
+                                top: "5px",
+                                right: "-5px",
+                                backgroundColor: "transparent",
+                                border: "none",
+                              }}
+                              onClick={() => {
+                                formik.setFieldValue("profile_img", "");
+                                formik.setFieldValue("profile_img_url", "");
+                              }}
+                            >
+                              <BsX
+                                style={{
+                                  color: "#ff0000",
+                                  fontSize: "25px",
+                                  fontWeight: "bold",
+                                }}
+                              />
+                            </Button>
+                          </div>
+                        </Box>
+                      )}
+                    </Col>
+
                     <Col xs={12} md={4} lg={4}>
                       <Form.Group
                         style={{ textAlign: "left" }}
@@ -805,7 +994,7 @@ const Contant = () => {
                             <Image
                               style={{ margin: "10px" }}
                               src={formik.values.driving_license_url_front}
-                              alt={formik.values.licence_front}
+                              alt={formik.values.licence_front.name}
                               width="150"
                               height="150"
                               thumbnail
@@ -901,7 +1090,7 @@ const Contant = () => {
                             <Image
                               style={{ margin: "10px" }}
                               src={formik.values.driving_license_url_back}
-                              alt={formik.values.licence_back}
+                              alt={formik.values.licence_back.name}
                               width="150"
                               height="150"
                               thumbnail
@@ -998,7 +1187,7 @@ const Contant = () => {
                             <Image
                               style={{ margin: "10px" }}
                               src={formik.values.address_proof_url}
-                              alt={formik.values.address_proof}
+                              alt={formik.values.address_proof.name}
                               width="150"
                               height="150"
                               thumbnail
@@ -1093,7 +1282,7 @@ const Contant = () => {
                             <Image
                               style={{ margin: "10px" }}
                               src={formik.values.insurance_cert_url}
-                              alt={formik.values.insurance_cert}
+                              alt={formik.values.insurance_cert.name}
                               width="150"
                               height="150"
                               thumbnail
@@ -1188,7 +1377,7 @@ const Contant = () => {
                             <Image
                               style={{ margin: "10px" }}
                               src={formik.values.transit_cert_url}
-                              alt={formik.values.transit_cert}
+                              alt={formik.values.transit_cert.name}
                               width="150"
                               height="150"
                               thumbnail
@@ -1238,7 +1427,7 @@ const Contant = () => {
                               fontWeight: 700,
                             }}
                           >
-                            Public Liability Certificate
+                           Public Liability Certificate
                           </Typography>
                         </Stack>
 
@@ -1283,7 +1472,7 @@ const Contant = () => {
                             <Image
                               style={{ margin: "10px" }}
                               src={formik.values.liability_cert_url}
-                              alt={formik.values.liability_cert}
+                              alt={formik.values.liability_cert.name}
                               width="150"
                               height="150"
                               thumbnail
@@ -1374,7 +1563,7 @@ const Contant = () => {
                             <Image
                               style={{ margin: "10px" }}
                               src={formik.values.v5c_cert_url}
-                              alt={formik.values.v5c_cert}
+                              alt={formik.values.v5c_cert.name}
                               width="150"
                               height="150"
                               thumbnail
@@ -1469,7 +1658,7 @@ const Contant = () => {
                             <Image
                               style={{ margin: "10px" }}
                               src={formik.values.dvia_cert_url}
-                              alt={formik.values.dvia_cert}
+                              alt={formik.values.dvia_cert.name}
                               width="150"
                               height="150"
                               thumbnail
@@ -1564,7 +1753,7 @@ const Contant = () => {
                             <Image
                               style={{ margin: "10px" }}
                               src={formik.values.nationality_cert_url}
-                              alt={formik.values.nationality_cert}
+                              alt={formik.values.nationality_cert.name}
                               width="150"
                               height="150"
                               thumbnail
@@ -1659,7 +1848,7 @@ const Contant = () => {
   );
 };
 
-class EditDriver extends Component {
+class AddDriver extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -1684,4 +1873,4 @@ class EditDriver extends Component {
   }
 }
 
-export default EditDriver;
+export default AddDriver;

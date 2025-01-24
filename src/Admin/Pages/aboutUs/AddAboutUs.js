@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Image from "react-bootstrap/Image";
 import Col from "react-bootstrap/Col";
-import "../../admin.css";
+import "../../../siginin/admin.css";
 import Sidebar from "../../SideNav/sideBar";
 import Loader from "../../../Components/Loader/Loader";
 import Form from "react-bootstrap/Form";

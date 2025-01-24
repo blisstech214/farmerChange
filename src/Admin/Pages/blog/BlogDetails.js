@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "../../admin.css";
+import "../../../siginin/admin.css";
 import Image from "react-bootstrap/Image";
 import Sidebar from "../../SideNav/sideBar";
 import Loader from "../../../Components/Loader/Loader";
