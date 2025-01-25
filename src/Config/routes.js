@@ -61,7 +61,6 @@
 // import Farmer from "../Admin/Pages/colllection center/Farmer/Farmer";
 // import Customer from "../Admin/Pages/usermanagement/customer/Customer"
 
-
 // const AdminSignin = React.lazy(() => import("../Admin/siginin/AdminSigin"));
 // const Reviews = React.lazy(() => import("../Admin/Pages/reviews/Reviews"));
 // const AddTestimonial = React.lazy(() =>
@@ -728,7 +727,7 @@ import AdminLayout from "../layout";
 import Order from "../Admin/Pages/ordermanagement/Order"; // Correct import path
 import FarmerManagement from "../Admin/Pages/farmerAndCcManagement/FarmerManagement";
 import CcManagement from "../Admin/Pages/farmerAndCcManagement/CcManagement";
-
+import DriveManage from "../Admin/Pages/DriverManagement/DriveManage";
 const AdminSignin = React.lazy(() => import("../Admin/siginin/AdminSigin"));
 const Reviews = React.lazy(() => import("../Admin/Pages/reviews/Reviews"));
 const AddTestimonial = React.lazy(() =>
@@ -807,7 +806,7 @@ const Routing = () => {
             </AdminLayout>
           }
         />
-         <Route
+        <Route
           path="/farmer/cc/FarmerManagement"
           element={
             <AdminLayout>
@@ -815,11 +814,19 @@ const Routing = () => {
             </AdminLayout>
           }
         />
-         <Route
+        <Route
           path="/farmer/cc/CcManagement"
           element={
             <AdminLayout>
               <CcManagement />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/Drive/Manage"
+          element={
+            <AdminLayout>
+              <DriveManage />
             </AdminLayout>
           }
         />
@@ -829,4 +836,3 @@ const Routing = () => {
 };
 
 export default Routing;
-

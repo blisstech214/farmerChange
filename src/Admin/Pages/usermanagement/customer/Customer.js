@@ -177,7 +177,7 @@ const Contant = () => {
   };
 
   return (
-    <>
+    <di>
       {loading ? (
         <Loader />
       ) : (
@@ -188,7 +188,7 @@ const Contant = () => {
     boxShadow: "none!important",
     borderRadius: "20px!important",
     mt: 4,
-    margin: "20px 100px",
+    // margin: "20px 100px",
   }}
 >
   <CardContent>
@@ -214,7 +214,7 @@ const Contant = () => {
             navigate(`/master/driver/drivers/add`);
           }}
         >
-          Add New Customer's
+          Add New Customer
         </Button>
       </Box>
     </Stack>
@@ -525,7 +525,7 @@ const Contant = () => {
 
         </>
       )}
-    </>
+    </di>
   );
 };
 

@@ -1,194 +1,83 @@
-import React, { useEffect, Component, useState } from "react";
-import Button from "@mui/material/Button";
+import React, { Component, useState } from "react";
+import { Box, Card, CardContent, Typography, Pagination } from "@mui/material";
 import Table from "react-bootstrap/Table";
-import AddIcon from "@mui/icons-material/Add";
-import "../../admin.css";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import Sidebar from "../../SideNav/sideBar";
-import Dropdown from "react-bootstrap/Dropdown";
-// import TablePagination from "../../../../Components/Pagination/Pagination";
-import { OverlayTrigger, Popover } from "react-bootstrap";
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Stack,
-  FormControl,
-  Select,
-  MenuItem,
-  TextField,
-  Pagination,
-  PaginationItem,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { MdRemoveRedEye, MdDelete, MdMode } from "react-icons/md";
 import CustomSnackbar from "../../../Components/notify/Snackbar";
-import { apiAdminConfig } from "../../../utils/api";
-import Nodata from "../../../Components/nodata/Nodata";
-// import Popup from "../../../../Components/popup/Popup";
 import Loader from "../../../Components/Loader/Loader";
-import { FaDotCircle } from "react-icons/fa";
-import { TbMailFilled } from "react-icons/tb";
+import Nodata from "../../../Components/nodata/Nodata";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "../../SideNav/sideBar";
 
 const Contant = () => {
   const navigate = useNavigate();
-  const [data, setData] = React.useState([]);
-
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false); // Set to false as no API is needed now
+  const [posts, setPosts] = useState([
+    {
+      id: 1,
+      user_name: "John Doe",
+      email: "john@example.com",
+      mobile: "123456789",
+      status: 0,
+    },
+    {
+      id: 2,
+      user_name: "Jane Smith",
+      email: "jane@example.com",
+      mobile: "987654321",
+      status: 1,
+    },
+    {
+      id: 3,
+      user_name: "Chris Evans",
+      email: "chris@example.com",
+      mobile: "564738291",
+      status: 2,
+    },
+    {
+      id: 4,
+      user_name: "Scarlett Johansson",
+      email: "scarlett@example.com",
+      mobile: "564738292",
+      status: 1,
+    },
+    // Add more static data here as needed
+  ]);
+  const [page, setPage] = useState(1);
   const [postsPerPage] = useState(10);
-  const [query, setQuery] = useState("");
-  const [filterState, setFilterState] = useState([]);
-  const [filterCity, setfilterCity] = useState([]);
-  const [filterdeptName, setfilterdeptName] = useState([]);
-  const [snackData, setsnackdata] = React.useState({
-    open: false,
-    message: "",
-    status: "",
-  });
-  const [open, setOpen] = useState(false);
-  const [page, setPage] = React.useState(1);
-  const [pageCount, setPageCount] = React.useState(0);
-  const [pageSize, setPageSize] = React.useState(10);
-  const [pageData, setPageData] = React.useState({});
-  let tablehead = [
-    "S/N",
-    "Farm's Name",
-    "Email",
-    "Contact No",
-    "Status",
-    "Farm Details",
-  ];
-  const [search, setSearch] = useState("");
+  const [pageCount] = useState(1); // Adjust page count for static data
 
   const handlePageChange = (event, value) => {
     setPage(value);
   };
 
-  const handlePageSizeChange = (event) => {
-    setPageSize(event.target.value);
-  };
-  const fetchdata = async (value) => {
-    // setLoading(true);
-    await apiAdminConfig
-      .get("api/auth/master/driver/search", {
-        params: {
-          search: value,
-          per_page: pageSize,
-          page: page,
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          console.log("response?.data", response?.data);
-          setPageCount(response?.data?.view_data?.last_page);
-          setPageSize(response?.data?.view_data?.per_page);
-          setPageData(response?.data?.view_data);
-          setPosts(response?.data?.view_data?.data);
-          setLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  };
-
-  React.useEffect(() => {
-    fetchdata();
-  }, []);
-  React.useEffect(() => {
-    fetchdata(search);
-  }, [search, page, pageSize]);
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const updateStatus = async (id, status) => {
-    console.log("error---->", id, status);
-    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    setsnackdata({
-      open: false,
-      message: "",
-      status: "success",
-    });
-
-    let apiEndpoint = "";
-    let statusType = "";
-
-    if (!status) {
-      apiEndpoint = `api/auth/master/verify-user/${id}`;
-      statusType = "success";
-    } else if (status === 1) {
-      apiEndpoint = `api/auth/master/customer/status/deactive/${id}`;
-      statusType = "success";
-    } else if (status === 2) {
-      apiEndpoint = `api/auth/master/customer/status/active/${id}`;
-      statusType = "success";
-    } else {
-      console.error("Invalid status");
-      return;
-    }
-
-    try {
-      const response = await apiAdminConfig.get(apiEndpoint);
-      if (response && response?.status === 200) {
-        fetchdata();
-        await wait(1000); // Assuming you have a wait function
-        setsnackdata({
-          open: true,
-          message: response.data.message,
-          status: statusType,
-        });
-      }
-    } catch (error) {
-      console.log("error---->", error);
-    }
-  };
-
-  //handle Delete function
-  const handleDelete = async (id) => {
-    setOpen(id);
-  };
+  let tablehead = [
+    "S/N",
+    "Drive's Name",
+    "Email",
+    "Contact No",
+    "Status",
+    "Drive's Details",
+  ];
 
   // Get current Posts
-  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfLastPost = page * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
-  //Change Page
   const paginate = (pagenumber) => {
-    setCurrentPage(pagenumber);
-  };
-
-  const [age, setAge] = React.useState(10);
-  const [selectOpen, setSelectOpen] = React.useState(false);
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
-  const handleSelectClose = () => {
-    setSelectOpen(false);
-  };
-
-  const handleOpen = () => {
-    setSelectOpen(true);
+    setPage(pagenumber);
   };
 
   return (
-    <di>
+    <div>
       {loading ? (
         <Loader />
       ) : (
         <>
-          <CustomSnackbar value={snackData} />
+          <CustomSnackbar value={{ open: false, message: "", status: "" }} />
           <Card
             sx={{
               boxShadow: "none!important",
               borderRadius: "20px!important",
               mt: 4,
-              // margin: "20px 100px",
             }}
           >
             <CardContent>
@@ -254,7 +143,6 @@ const Contant = () => {
                           <td style={{ padding: "12px" }}>
                             {el.mobile || "N/A"}
                           </td>
-
                           <td style={{ padding: "12px" }}>
                             <div
                               style={{
@@ -350,7 +238,8 @@ const Contant = () => {
                   }}
                 >
                   <Typography sx={{ fontSize: "14px" }}>
-                    Showing {pageData?.from}-{pageData?.to} of {pageData?.total}{" "}
+                    Showing {indexOfFirstPost + 1}-
+                    {Math.min(indexOfLastPost, posts.length)} of {posts.length}{" "}
                     entries
                   </Typography>
                   <Pagination
@@ -367,7 +256,7 @@ const Contant = () => {
           </Card>
         </>
       )}
-    </di>
+    </div>
   );
 };
 

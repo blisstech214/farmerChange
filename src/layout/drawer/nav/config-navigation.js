@@ -1,4 +1,3 @@
-
 // routes
 // import { PATH_DASHBOARD } from "../../../routes/paths";
 // components
@@ -18,6 +17,7 @@ import {
 } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
+import { FaGoogleDrive } from "react-icons/fa";
 
 import { IoMdSettings } from "react-icons/io";
 import {
@@ -119,7 +119,7 @@ const navConfig = [
         title: "Order Management",
         icon: <FaClipboardList size={16} />,
         path: "/master/customer/Order",
-         // children: [
+        // children: [
         //   {
         //     permission: "customer-company",
         //     title: "Companies",
@@ -136,8 +136,8 @@ const navConfig = [
       },
       {
         permission: "job-root",
-        title:"Profile Management",
-        icon: <ImProfile  size={16} />,
+        title:"ProfileManagement",
+        icon: <ImProfile size={16} />,
         path: "/farmer/cc/",
         children: [
           {
@@ -154,12 +154,13 @@ const navConfig = [
           },
         ],
       },
+
       {
         permission: "page-setting-root",
         title: "Driver Management",
-        icon: <IoMdSettings size={16} />,
-        path: "/master/setting/",
-         // children: [
+        icon: <FaGoogleDrive size={16} />,
+        path: "/Drive/Manage",
+        // children: [
         //   {
         //     permission: "page-setting-about",
         //     title: "About Us ",
