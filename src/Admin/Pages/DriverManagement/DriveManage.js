@@ -51,11 +51,11 @@ const Contant = () => {
 
   let tablehead = [
     "S/N",
-    "Drive's Name",
+    "Driver's Name",
     "Email",
     "Contact No",
     "Status",
-    "Drive's Details",
+    "Driver's Details",
   ];
 
   // Get current Posts
