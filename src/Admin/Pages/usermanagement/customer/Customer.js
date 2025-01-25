@@ -184,419 +184,345 @@ const Contant = () => {
         <>
           <CustomSnackbar value={snackData} />
           <Card
-            sx={{
-              boxShadow: "none!important",
-              borderRadius: "20px!important",
-              mt: 4,
+  sx={{
+    boxShadow: "none!important",
+    borderRadius: "20px!important",
+    mt: 4,
+    margin: "20px 100px",
+  }}
+>
+  <CardContent>
+    <Stack direction="row" justifyContent="space-between" mb={8}>
+      <Box>
+        <Typography component="h3" sx={{ fontSize: "30px", fontWeight: 500 }}>
+          Customer's
+        </Typography>
+      </Box>
+      <Box>
+        <Button
+          variant="outlined"
+          color="primary"
+          sx={{
+            textTransform: "none",
+            borderRadius: "15px",
+            padding: "0.875rem 1.5rem",
+            fontSize: "14px !important",
+            lineHeight: "1",
+          }}
+          startIcon={<AddIcon color="primary" />}
+          onClick={() => {
+            navigate(`/master/driver/drivers/add`);
+          }}
+        >
+          Add New Customer's
+        </Button>
+      </Box>
+    </Stack>
+
+    <Stack direction="row" justifyContent="space-between" mb={2} mt={4} alignItems="center">
+      <Stack direction="row" spacing={1} alignItems="center">
+        <Typography sx={{ fontSize: "13px" }}>Show</Typography>
+        <FormControl size="small">
+          <Select
+            sx={{ fontSize: "13px" }}
+            open={selectOpen}
+            onClose={handleSelectClose}
+            onOpen={handleOpen}
+            value={pageSize}
+            onChange={handlePageSizeChange}
+          >
+            <MenuItem sx={{ fontSize: "13px" }} value={10}>
+              10
+            </MenuItem>
+            <MenuItem sx={{ fontSize: "13px" }} value={25}>
+              25
+            </MenuItem>
+            <MenuItem sx={{ fontSize: "13px" }} value={50}>
+              50
+            </MenuItem>
+            <MenuItem sx={{ fontSize: "13px" }} value={100}>
+              100
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <Typography sx={{ fontSize: "13px" }}>entries</Typography>
+      </Stack>
+      <Box>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Typography sx={{ fontSize: "13px" }}>Search :</Typography>
+          <FormControl size="small">
+            <input
+              sx={{
+                fontSize: "13px",
+                border: "1px solid",
+                borderRadius: "10px",
+              }}
+              value={search}
+              onChange={(event) => {
+                setSearch(event.target.value);
+              }}
+            />
+          </FormControl>
+        </Stack>
+      </Box>
+    </Stack>
+
+    <Box sx={{ mt: 4, minHeight: "100%" }}>
+      {posts && posts.length !== 0 ? (
+        <Table
+          size="lg"
+          sx={{
+            width: "100%",
+            margin: "0 auto",
+            tableLayout: "fixed",
+          
+          }}
+        >
+          <thead
+            style={{
+              backgroundColor: "#FF7534",
+              color: "#fff",
+              padding: "10px",
             }}
           >
-            <CardContent>
-              <Stack direction="row" justifyContent="space-between" mb={8}>
-                <Box>
-                  <Typography
-                    component="h3"
-                    sx={{ fontSize: "30px", fontWeight: 500 }}
-                  >
-                   Customer's
-                  </Typography>
-                </Box>
-                <Box>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    sx={{
-                      textTransform: "none",
-                      borderRadius: "15px",
-                      padding: "0.875rem 1.5rem",
-                      fontSize: "14px !important",
-                      lineHeight: "1",
-                      // ":hover": {
-                      //   background: (theme) => theme.palette?.primary?.main,
-                      //   color: (theme) =>
-                      //     `${theme?.palette?.common?.white}!important`,
-                      // },
-                    }}
-                    startIcon={<AddIcon color="primary" />}
-                    onClick={() => {
-                      navigate(`/master/driver/drivers/add`);
-                    }}
-                  >
-                    Add New Customer's
-                  </Button>
-                </Box>
-              </Stack>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                mb={2}
-                mt={4}
-                alignItems="center"
-              >
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Typography sx={{ fontSize: "13px" }}>Show</Typography>
-                  <FormControl size="small">
-                    <Select
-                      sx={{ fontSize: "13px" }}
-                      open={selectOpen}
-                      onClose={handleSelectClose}
-                      onOpen={handleOpen}
-                      value={pageSize}
-                      onChange={handlePageSizeChange}
-                    >
-                      <MenuItem sx={{ fontSize: "13px" }} value={10}>
-                        10
-                      </MenuItem>
-                      <MenuItem sx={{ fontSize: "13px" }} value={25}>
-                        25
-                      </MenuItem>
-                      <MenuItem sx={{ fontSize: "13px" }} value={50}>
-                        50
-                      </MenuItem>
-                      <MenuItem sx={{ fontSize: "13px" }} value={100}>
-                        100
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                  <Typography sx={{ fontSize: "13px" }}>entries</Typography>
-                </Stack>
-                               <Box>
-                 <Stack direction="row" spacing={1} alignItems="center">
-                   <Typography sx={{ fontSize: "13px" }}>Search :</Typography>
-                   <FormControl size="small">
-                     <input
-                       sx={{
-                         fontSize: "13px",
-                         border:"1px solid",
-                         borderRadius:"10px",
-                       }}
-                       
-                       value={search}
-                       onChange={(event) => {
-                         setSearch(event.target.value);
-                       }}
-                     />
-                   </FormControl>
-                 </Stack>
-               </Box>
-              </Stack>
-              <div>
-                <Box sx={{ mt: 4, minHeight: "100%" }}>
-                  {posts && posts.length !== 0 ? (
-                    <Table size="lg" responsive>
-                      <thead
-                        style={{
-                          // backgroundColor: "#F0F1F2",
-                          color: "#fff",
-                          padding: "10px",
-                          backgroundColor: "#FF7534",
-                          textAlign: "left",
-                          width: "100%",
-                        }}
-                      >
-                        <tr style={{ width: "10%" }}>
-                          {tablehead.map((el, id) => {
-                            return (
-                              <th
-                                key={id}
-                                style={{
-                                  textAlign: "start",
-                                  verticalAlign: "middle",
-                                  fontSize: "14px",
-                                }}
-                              >
-                                {el}
-                              </th>
-                            );
-                          })}
-                        </tr>
-                      </thead>
-                      <tbody style={{ textAlign: "left", fontSize: "14px" }}>
-                        {posts &&
-                          posts?.map((el, id) => {
-                            return (
-                              <tr
-                                key={id}
-                                style={{
-                                  fontSize: "14px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    fontSize: "14px",
-                                    textAlign: "start",
-                                    verticalAlign: "middle",
-                                  }}
-                                >
-                                  {id + 1}
-                                </td>
-                                <td
-                                  style={{
-                                    fontSize: "14px",
-                                    textAlign: "start",
-                                    verticalAlign: "middle",
-                                    cursor: "pointer",
-                                  }}
-                                  onClick={() => {
-                                    navigate(`/master/driver/history/${el.id}`);
-                                  }}
-                                >
-                                  {el.user_name || "N/A"}
-                                </td>
-                                <td
-                                  style={{
-                                    fontSize: "14px",
-                                    textAlign: "start",
-                                    verticalAlign: "middle",
-                                  }}
-                                >
-                                  {el.email || "N/A"}
-                                </td>
-                                <td
-                                  style={{
-                                    fontSize: "14px",
-                                    textAlign: "start",
-                                    verticalAlign: "middle",
-                                  }}
-                                >
-                                  {el?.mobile || "N/A"}
-                                </td>
-                                {/* <td
-                                  style={{
-                                    fontSize: "14px",
-                                    textAlign: "center",
-                                    verticalAlign: "middle",
-                                  }}
-                                >
-                                  {el?.register_type || "N/A"}
-                                </td> */}
-                             
-                                {/* <td
-                                  style={{
-                                    fontSize: "14px",
-                                    textAlign: "center",
-                                    verticalAlign: "middle",
-                                  }}
-                                >
-                                  {el?.total_amount || "N/A"}
-                                </td> */}
-<td
-  style={{
-    fontSize: "14px",
-    textAlign: "center",
-    verticalAlign: "middle",
-    color: el?.status === 0 ? "#FF0000" : el?.status === 1 ? "#008000" : "#6c757d", // Text color
-    backgroundColor:
-      el?.status === 0
-        ? "#FFE5E5" // Mild red background
-        : el?.status === 1
-        ? "#E5F9E5" // Mild green background
-        : "#F2F2F2", // Neutral background
-    padding: "8px 12px",
-    borderRadius: "8px",
-    margin: "4px",
-    border: "1px solid #ccc",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "8px",
-  }}
->
-  <FaDotCircle />
-  {el?.status === 0 ? "Deactive" : el?.status === 1 ? "Active" : "N/A"}
-</td>
-
-
-                                {/* <td style={{ width: "20vh" }}>
-                              {moment(el?.createdAt).format("DD/MM/YYYY")}
-                            </td> */}
-                               <td style={{ textAlign: "center" }}>
-  <Dropdown>
-    <OverlayTrigger
-      rootClose
-      trigger="click"
-      placement="bottom"
-      overlay={
-        <Popover id="popover-basic">
-          <Popover.Body style={{ padding: "10px" }}>
-            <Stack gap={2}>
-              <Dropdown.Item
-                onClick={() => {
-                  navigate(`/master/driver/drivers/view/${el.user_id}`);
-                }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "8px 12px",
-                  fontSize: "14px",
-                  lineHeight: "1.5",
-                }}
-              >
-                <MdRemoveRedEye size={18} />
-                View
-              </Dropdown.Item>
-              <Button
-  size="sm"
-  variant="success"
-  onClick={() => updateStatus(el.user_id, el?.status === 0 ? 1 : 0)} // Toggle status
-  style={{
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "8px",
-    width: "100%",
-    fontSize: "14px",
-    lineHeight: "1.5",
-    color: el?.status === 0 ? "#008000" : "#FF0000", // Opposite color for action
-    backgroundColor:
-      el?.status === 0
-        ? "#E5F9E5" // Mild green background for "Activate"
-        : "#FFE5E5", // Mild red background for "Deactivate"
-    borderColor: "#ccc",
-    padding: ".375rem .75rem",
-    borderRadius: ".2rem",
-  }}
->
-  <FaDotCircle />
-  {el?.status === 0 ? "Activate" : "Deactivate"} {/* Opposite action text */}
-</Button>
-
-
-              <Dropdown.Item
-                onClick={() => {
-                  handleDelete(el.user_id);
-                }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "8px 12px",
-                  fontSize: "14px",
-                  lineHeight: "1.5",
-                }}
-              >
-                <TbMailFilled size={18} />
-                Mail
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                onClick={() => {
-                  navigate(`/master/driver/drivers/edit/${el?.user_id}`);
-                }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "8px 12px",
-                  fontSize: "14px",
-                  lineHeight: "1.5",
-                }}
-              >
-                <MdMode size={18} />
-                Edit
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                onClick={() => {
-                  handleDelete(el.user_id);
-                }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "8px 12px",
-                  fontSize: "14px",
-                  lineHeight: "1.5",
-                }}
-              >
-                <MdDelete size={18} />
-                Delete
-              </Dropdown.Item>
-            </Stack>
-          </Popover.Body>
-        </Popover>
-      }
-    >
-      <Dropdown.Toggle variant="light" id="dropdown-basic">
-        <BsThreeDotsVertical />
-      </Dropdown.Toggle>
-    </OverlayTrigger>
-  </Dropdown>
-</td>
-
-                              </tr>
-                            );
-                          })}
-                      </tbody>
-                    </Table>
-                  ) : (
-                    <div>
-                      <Nodata />
-                    </div>
-                  )}
-                </Box>
-                <Box
+            <tr>
+              {tablehead.map((el, id) => (
+                <th
+                  key={id}
                   style={{
-                    backgroundColor: "#fff",
-                    color: "#000",
-                    padding: "0px",
-                    borderTop: "0px",
+                    textAlign: "center",
+                    fontSize: "14px",
+                    padding: "8px",
+                    width: "auto",
                   }}
                 >
-                  <div className="justify-content-between flex-wrap d-flex align-items-center">
-                    <Typography
-                      className="footer-text"
-                      sx={{ fontSize: "14px" }}
+                  {el}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {posts.map((el, id) => (
+              <tr key={id} style={{ fontSize: "14px", textAlign: "center" ,justifyItems:"center"}}>
+                <td style={{ padding: "8px" }}>{id + 1}</td>
+                <td
+                  style={{
+                    padding: "8px",
+                    cursor: "pointer",
+                    textAlign: "center",
+                  }}
+                  onClick={() => {
+                    navigate(`/master/driver/history/${el.id}`);
+                  }}
+                >
+                  {el.user_name || "N/A"}
+                </td>
+                <td style={{ padding: "8px" ,  textAlign: "center", }}>{el.email || "N/A"}</td>
+                <td style={{ padding: "8px" ,  textAlign: "center", }}>{el?.mobile || "N/A"}</td>
+                <td
+  style={{
+    padding: "8px 12px",
+    borderRadius: "8px",
+    margin: "10px 10px",
+    display: "inline-block",  // Inline Flex to center the content
+    alignItems: "center",  // Vertical centering
+    justifyContent: "center",  // Horizontal centering
+    textAlign: "center",
+    width: "80px",  // Adjust width for proper fit
+    height: "40px",  // Adjust height for proper fit
+    backgroundColor:
+      el?.status === 0
+        ? "#FFE5E5"
+        : el?.status === 1
+        ? "#E5F9E5"
+        : "#F2F2F2",
+    color:
+      el?.status === 0
+        ? "#FF0000"
+        : el?.status === 1
+        ? "#008000"
+        : "#6c757d",
+    // marginTop: el?.status === 1 ? "10px" : "0",  // Add space before "Active"
+  }}
+>
+  <div
+    // style={{
+    //   display: "inline-block",  // To ensure the button stays within the content box
+    //   width: "60px",  // Adjust width as needed
+    //   height: "30px",  // Adjust height as needed
+    //   textAlign: "center",  // Center text inside the button
+    //   lineHeight: "30px",  // Vertically center text within the button
+    //   borderRadius: "8px",
+    //   backgroundColor: el?.status === 1 ? "#008000" : "#FF0000",  // Green for Active, Red for Deactive
+    //   color: "white",
+    //   fontWeight: "bold",
+    //   cursor: "pointer",
+    // }}
+  >
+    {el?.status === 0
+      ? "Deactive"
+      : el?.status === 1
+      ? "Active"
+      : "N/A"}
+  </div>
+</td>
+
+
+
+                <td style={{ padding: "8px" }}>
+                  <Dropdown>
+                    <OverlayTrigger
+                      rootClose
+                      trigger="click"
+                      placement="bottom"
+                      overlay={
+                        <Popover id="popover-basic">
+                          <Popover.Body style={{ padding: "10px" }}>
+                            <Stack gap={2}>
+                              <Dropdown.Item
+                                onClick={() => {
+                                  navigate(`/master/driver/drivers/view/${el.user_id}`);
+                                }}
+                                style={{
+                                  display: "flex",
+                                  alignItems: "start",
+                                  gap: "8px",
+                                  padding: "3px",
+                                  fontSize: "14px",
+                                }}
+                              >
+                                <MdRemoveRedEye size={18} />
+                                View
+                              </Dropdown.Item>
+                              <Button
+                                size="sm"
+                                variant="success"
+                                onClick={() =>
+                                  updateStatus(el.user_id, el?.status === 0 ? 1 : 0)
+                                }
+                                style={{
+                                  display: "flex",
+                                  alignItems: "start",
+                                  justifyContent: "start",
+                                  gap: "8px",
+                                  width: "100%",
+                                  fontSize: "14px",
+                                  color: el?.status === 0 ? "#008000" : "#FF0000",
+                                  backgroundColor:
+                                    el?.status === 0 ? "#E5F9E5" : "#FFE5E5",
+                                  borderColor: "#ccc",
+                                  padding: ".375rem .75rem",
+                                  borderRadius: ".2rem",
+                                }}
+                              >
+                                {el?.status === 0 ? "Activate" : "Deactivate"}
+                              </Button>
+                              <Dropdown.Item
+                                onClick={() => {
+                                  handleDelete(el.user_id);
+                                }}
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "8px",
+                                  padding: "8px 12px",
+                                  fontSize: "14px",
+                                }}
+                              >
+                                <TbMailFilled size={18} />
+                                Mail
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                onClick={() => {
+                                  navigate(`/master/driver/drivers/edit/${el?.user_id}`);
+                                }}
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "8px",
+                                  padding: "8px 12px",
+                                  fontSize: "14px",
+                                }}
+                              >
+                                <MdMode size={18} />
+                                Edit
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                onClick={() => {
+                                  handleDelete(el.user_id);
+                                }}
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "8px",
+                                  padding: "8px 12px",
+                                  fontSize: "14px",
+                                }}
+                              >
+                                <MdDelete size={18} />
+                                Delete
+                              </Dropdown.Item>
+                            </Stack>
+                          </Popover.Body>
+                        </Popover>
+                      }
                     >
-                      Showing {pageData?.from}-{pageData?.to} of{" "}
-                      {pageData?.total} entries
-                    </Typography>
-                    <Pagination
-                      count={pageCount}
-                      color="primary"
-                      page={page}
-                      onChange={handlePageChange}
-                      variant="outlined"
-                      shape="rounded"
-                      renderItem={(item) => (
-                        <PaginationItem
-                          slots={{
-                            previous: () => {
-                              return (
-                                <Typography sx={{ fontSize: "14px" }}>
-                                  Previous
-                                </Typography>
-                              );
-                            },
-                            next: () => {
-                              return (
-                                <Typography sx={{ fontSize: "14px" }}>
-                                  Next
-                                </Typography>
-                              );
-                            },
-                          }}
-                          {...item}
-                        />
-                      )}
-                    />
-                  </div>
-                </Box>
-                {open && (
-                  <Popup
-                    title="Add New Driver"
-                    id={open}
-                    handleClose={handleClose}
-                    handleDelete={handleClose}
-                    fetchdata={fetchdata}
-                    setsnackdata={setsnackdata}
-                    setOpen={setOpen}
-                    actionURL="api/auth/master/driver/delete"
-                  />
-                )}
-              </div>{" "}
-            </CardContent>
-          </Card>
+                      <Dropdown.Toggle variant="light" id="dropdown-basic">
+                        <BsThreeDotsVertical />
+                      </Dropdown.Toggle>
+                    </OverlayTrigger>
+                  </Dropdown>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : (
+        <div>
+          <Nodata />
+        </div>
+      )}
+    </Box>
+    <Box
+      style={{
+        backgroundColor: "#fff",
+        color: "#000",
+        padding: "0px",
+        borderTop: "0px",
+      }}
+    >
+      <div className="justify-content-between flex-wrap d-flex align-items-center">
+        <Typography className="footer-text" sx={{ fontSize: "14px" }}>
+          Showing {pageData?.from}-{pageData?.to} of {pageData?.total} entries
+        </Typography>
+        <Pagination
+          count={pageCount}
+          color="primary"
+          page={page}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          renderItem={(item) => (
+            <PaginationItem
+              slots={{
+                previous: () => {
+                  return (
+                    <Typography sx={{ fontSize: "14px" }}>Previous</Typography>
+                  );
+                },
+                next: () => {
+                  return <Typography sx={{ fontSize: "14px" }}>Next</Typography>;
+                },
+              }}
+              {...item}
+            />
+          )}
+        />
+      </div>
+    </Box>
+  </CardContent>
+</Card>
+
         </>
       )}
     </>

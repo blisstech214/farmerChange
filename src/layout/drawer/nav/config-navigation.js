@@ -17,6 +17,7 @@ import {
   FaUserCog,
 } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
 
 import { IoMdSettings } from "react-icons/io";
 import {
@@ -135,21 +136,21 @@ const navConfig = [
       },
       {
         permission: "job-root",
-        title: "Farmers & CC Management",
-        icon: <FaBriefcase size={16} />,
-        path: "/master/job",
+        title:"Profile Management",
+        icon: <ImProfile  size={16} />,
+        path: "/farmer/cc/",
         children: [
           {
             permission: "job-jobs",
-            title: "Farmers",
-            path: "/master/job/jobs/list",
-            icon: <BsFillPersonVcardFill size={16} />,
+            title: "Farmer's",
+            path: "/farmer/cc/FarmerManagement",
+            icon: <FaDotCircle size={16} />,
           },
           {
             permission: "job-job-deleted",
-            title: "CC",
-            path: "/master/job/job_deleted/list",
-            icon: <MdOutlineDeleteOutline size={18} />,
+            title: "Connection Center's",
+            path: "/farmer/cc/CcManagement",
+            icon: <FaDotCircle size={18} />,
           },
         ],
       },
@@ -191,76 +192,76 @@ const navConfig = [
         //   },
         // ],
       },
-      {
-        permission: "sub-admin-root",
-        title: "Commission Management",
-        icon: <FaUserCheck size={16} />,
-        path: "/master/sub-admin",
-         // children: [
-        //   {
-        //     permission: "sub-admin-sub-admin",
-        //     title: "Sub Admin",
-        //     path: "/master/sub-admin/list",
-        //     icon: <FaDotCircle size={16} />,
-        //   },
-        // ],
-      },
-      {
-        permission: "job-root",
-        title: "Analytics and Reporting",
-        icon: <FaBriefcase size={16} />,
-        path: "/master/subscription",
-        children: [
-          {
-            permission: "job-jobs",
-            title: "Analytics",
-            path:"/master/subscription/subscriptions",
-            icon: <BsFillPersonVcardFill size={16} />,
-          },
-          {
-            permission: "job-job-deleted",
-            title: "Report",
-            path:"/master/subscription/subscriptions",
-            icon: <MdOutlineDeleteOutline size={18} />,
-          },
-        ],
-      },
-      {
-        permission: "blog-root",
-        title: "Notifications & Communication",
-        icon: <FaThList size={16} />,
-        path: "/master/blog/blogs",
-      },
-      {
-        permission: "testimonial-root",
-        title: "License Fee Management",
-        icon: <AiFillStar size={16} />,
-        path: "/master/review/review-ratings",
-      },
-      {
-        permission: "news-letter-root",
-        title: "Settings and Configuration",
-        icon: <FaEnvelopeOpenText size={16} />,
-        path: "/master/newsletter/newsletters",
-      },
-      {
-        permission: "notification-management-root",
-        title: "Security and Access Control",
-        icon: <BsFillBellFill size={16} />,
-        path: "/master/notificationmanagement/notificationmanagements",
-      },
-      {
-        permission: "notification-management-root",
-        title: "Feedback and Support",
-        icon: <BiSupport size={16} />,
-        path: "/master/notificationmanagement/notificationmanagements",
-      },
-      {
-        permission: "notification-management-root",
-        title: "Integration and Scalability",
-        icon: <BsEnvelopePaperFill size={16} />,
-        path: "/master/notificationmanagement/notificationmanagements",
-      },
+      // {
+      //   permission: "sub-admin-root",
+      //   title: "Commission Management",
+      //   icon: <FaUserCheck size={16} />,
+      //   path: "/master/sub-admin",
+      //    // children: [
+      //   //   {
+      //   //     permission: "sub-admin-sub-admin",
+      //   //     title: "Sub Admin",
+      //   //     path: "/master/sub-admin/list",
+      //   //     icon: <FaDotCircle size={16} />,
+      //   //   },
+      //   // ],
+      // },
+      // {
+      //   permission: "job-root",
+      //   title: "Analytics and Reporting",
+      //   icon: <FaBriefcase size={16} />,
+      //   path: "/master/subscription",
+      //   children: [
+      //     {
+      //       permission: "job-jobs",
+      //       title: "Analytics",
+      //       path:"/master/subscription/subscriptions",
+      //       icon: <BsFillPersonVcardFill size={16} />,
+      //     },
+      //     {
+      //       permission: "job-job-deleted",
+      //       title: "Report",
+      //       path:"/master/subscription/subscriptions",
+      //       icon: <MdOutlineDeleteOutline size={18} />,
+      //     },
+      //   ],
+      // },
+      // {
+      //   permission: "blog-root",
+      //   title: "Notifications & Communication",
+      //   icon: <FaThList size={16} />,
+      //   path: "/master/blog/blogs",
+      // },
+      // {
+      //   permission: "testimonial-root",
+      //   title: "License Fee Management",
+      //   icon: <AiFillStar size={16} />,
+      //   path: "/master/review/review-ratings",
+      // },
+      // {
+      //   permission: "news-letter-root",
+      //   title: "Settings and Configuration",
+      //   icon: <FaEnvelopeOpenText size={16} />,
+      //   path: "/master/newsletter/newsletters",
+      // },
+      // {
+      //   permission: "notification-management-root",
+      //   title: "Security and Access Control",
+      //   icon: <BsFillBellFill size={16} />,
+      //   path: "/master/notificationmanagement/notificationmanagements",
+      // },
+      // {
+      //   permission: "notification-management-root",
+      //   title: "Feedback and Support",
+      //   icon: <BiSupport size={16} />,
+      //   path: "/master/notificationmanagement/notificationmanagements",
+      // },
+      // {
+      //   permission: "notification-management-root",
+      //   title: "Integration and Scalability",
+      //   icon: <BsEnvelopePaperFill size={16} />,
+      //   path: "/master/notificationmanagement/notificationmanagements",
+      // },
     ],
   },
 ];
