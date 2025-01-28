@@ -37,6 +37,7 @@ export default function MiniDrawer() {
         <Toolbar>
           <IconButton
             color="inherit"
+            backgroundColor="#ff0069"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"

@@ -184,345 +184,385 @@ const Contant = () => {
         <>
           <CustomSnackbar value={snackData} />
           <Card
-  sx={{
-    boxShadow: "none!important",
-    borderRadius: "20px!important",
-    mt: 4,
-    // margin: "20px 100px",
-  }}
->
-  <CardContent>
-    <Stack direction="row" justifyContent="space-between" mb={8}>
-      <Box>
-        <Typography component="h3" sx={{ fontSize: "30px", fontWeight: 500 }}>
-          Customer's
-        </Typography>
-      </Box>
-      <Box>
-        <Button
-          variant="outlined"
-          color="primary"
-          sx={{
-            textTransform: "none",
-            borderRadius: "15px",
-            padding: "0.875rem 1.5rem",
-            fontSize: "14px !important",
-            lineHeight: "1",
-          }}
-          startIcon={<AddIcon color="primary" />}
-          onClick={() => {
-            navigate(`/master/driver/drivers/add`);
-          }}
-        >
-          Add New Customer
-        </Button>
-      </Box>
-    </Stack>
-
-    <Stack direction="row" justifyContent="space-between" mb={2} mt={4} alignItems="center">
-      <Stack direction="row" spacing={1} alignItems="center">
-        <Typography sx={{ fontSize: "13px" }}>Show</Typography>
-        <FormControl size="small">
-          <Select
-            sx={{ fontSize: "13px" }}
-            open={selectOpen}
-            onClose={handleSelectClose}
-            onOpen={handleOpen}
-            value={pageSize}
-            onChange={handlePageSizeChange}
-          >
-            <MenuItem sx={{ fontSize: "13px" }} value={10}>
-              10
-            </MenuItem>
-            <MenuItem sx={{ fontSize: "13px" }} value={25}>
-              25
-            </MenuItem>
-            <MenuItem sx={{ fontSize: "13px" }} value={50}>
-              50
-            </MenuItem>
-            <MenuItem sx={{ fontSize: "13px" }} value={100}>
-              100
-            </MenuItem>
-          </Select>
-        </FormControl>
-        <Typography sx={{ fontSize: "13px" }}>entries</Typography>
-      </Stack>
-      <Box>
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Typography sx={{ fontSize: "13px" }}>Search :</Typography>
-          <FormControl size="small">
-            <input
-              sx={{
-                fontSize: "13px",
-                border: "1px solid",
-                borderRadius: "10px",
-              }}
-              value={search}
-              onChange={(event) => {
-                setSearch(event.target.value);
-              }}
-            />
-          </FormControl>
-        </Stack>
-      </Box>
-    </Stack>
-
-    <Box sx={{ mt: 4, minHeight: "100%" }}>
-      {posts && posts.length !== 0 ? (
-        <Table
-          size="lg"
-          sx={{
-            width: "100%",
-            margin: "0 auto",
-            tableLayout: "fixed",
-          
-          }}
-        >
-          <thead
-            style={{
-              backgroundColor: "#FF7534",
-              color: "#fff",
-              padding: "10px",
+            sx={{
+              boxShadow: "none!important",
+              borderRadius: "20px!important",
+              mt: 4,
+              // margin: "20px 100px",
             }}
           >
-            <tr>
-              {tablehead.map((el, id) => (
-                <th
-                  key={id}
-                  style={{
-                    textAlign: "center",
-                    fontSize: "14px",
-                    padding: "8px",
-                    width: "auto",
-                  }}
-                >
-                  {el}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((el, id) => (
-              <tr key={id} style={{ fontSize: "14px", textAlign: "center" ,justifyItems:"center"}}>
-                <td style={{ padding: "8px" }}>{id + 1}</td>
-                <td
-                  style={{
-                    padding: "8px",
-                    cursor: "pointer",
-                    textAlign: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/master/driver/history/${el.id}`);
-                  }}
-                >
-                  {el.user_name || "N/A"}
-                </td>
-                <td style={{ padding: "8px" ,  textAlign: "center", }}>{el.email || "N/A"}</td>
-                <td style={{ padding: "8px" ,  textAlign: "center", }}>{el?.mobile || "N/A"}</td>
-                <td
-  style={{
-    padding: "8px 12px",
-    borderRadius: "8px",
-    margin: "10px 10px",
-    display: "inline-block",  // Inline Flex to center the content
-    alignItems: "center",  // Vertical centering
-    justifyContent: "center",  // Horizontal centering
-    textAlign: "center",
-    width: "80px",  // Adjust width for proper fit
-    height: "40px",  // Adjust height for proper fit
-    backgroundColor:
-      el?.status === 0
-        ? "#FFE5E5"
-        : el?.status === 1
-        ? "#E5F9E5"
-        : "#F2F2F2",
-    color:
-      el?.status === 0
-        ? "#FF0000"
-        : el?.status === 1
-        ? "#008000"
-        : "#6c757d",
-    // marginTop: el?.status === 1 ? "10px" : "0",  // Add space before "Active"
-  }}
->
-  <div
-    // style={{
-    //   display: "inline-block",  // To ensure the button stays within the content box
-    //   width: "60px",  // Adjust width as needed
-    //   height: "30px",  // Adjust height as needed
-    //   textAlign: "center",  // Center text inside the button
-    //   lineHeight: "30px",  // Vertically center text within the button
-    //   borderRadius: "8px",
-    //   backgroundColor: el?.status === 1 ? "#008000" : "#FF0000",  // Green for Active, Red for Deactive
-    //   color: "white",
-    //   fontWeight: "bold",
-    //   cursor: "pointer",
-    // }}
-  >
-    {el?.status === 0
-      ? "Deactive"
-      : el?.status === 1
-      ? "Active"
-      : "N/A"}
-  </div>
-</td>
+            <CardContent>
+              <Stack direction="row" justifyContent="space-between" mb={8}>
+                <Box>
+                  <Typography
+                    component="h3"
+                    sx={{ fontSize: "30px", fontWeight: 500 }}
+                  >
+                    Customer's
+                  </Typography>
+                </Box>
+                <Box>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    sx={{
+                      textTransform: "none",
+                      borderRadius: "15px",
+                      padding: "0.875rem 1.5rem",
+                      fontSize: "14px !important",
+                      lineHeight: "1",
+                    }}
+                    startIcon={<AddIcon color="primary" />}
+                    onClick={() => {
+                      navigate(`/master/driver/drivers/add`);
+                    }}
+                  >
+                    Add New Customer's
+                  </Button>
+                </Box>
+              </Stack>
 
-
-
-                <td style={{ padding: "8px" }}>
-                  <Dropdown>
-                    <OverlayTrigger
-                      rootClose
-                      trigger="click"
-                      placement="bottom"
-                      overlay={
-                        <Popover id="popover-basic">
-                          <Popover.Body style={{ padding: "10px" }}>
-                            <Stack gap={2}>
-                              <Dropdown.Item
-                                onClick={() => {
-                                  navigate(`/master/driver/drivers/view/${el.user_id}`);
-                                }}
-                                style={{
-                                  display: "flex",
-                                  alignItems: "start",
-                                  gap: "8px",
-                                  padding: "3px",
-                                  fontSize: "14px",
-                                }}
-                              >
-                                <MdRemoveRedEye size={18} />
-                                View
-                              </Dropdown.Item>
-                              <Button
-                                size="sm"
-                                variant="success"
-                                onClick={() =>
-                                  updateStatus(el.user_id, el?.status === 0 ? 1 : 0)
-                                }
-                                style={{
-                                  display: "flex",
-                                  alignItems: "start",
-                                  justifyContent: "start",
-                                  gap: "8px",
-                                  width: "100%",
-                                  fontSize: "14px",
-                                  color: el?.status === 0 ? "#008000" : "#FF0000",
-                                  backgroundColor:
-                                    el?.status === 0 ? "#E5F9E5" : "#FFE5E5",
-                                  borderColor: "#ccc",
-                                  padding: ".375rem .75rem",
-                                  borderRadius: ".2rem",
-                                }}
-                              >
-                                {el?.status === 0 ? "Activate" : "Deactivate"}
-                              </Button>
-                              <Dropdown.Item
-                                onClick={() => {
-                                  handleDelete(el.user_id);
-                                }}
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: "8px",
-                                  padding: "8px 12px",
-                                  fontSize: "14px",
-                                }}
-                              >
-                                <TbMailFilled size={18} />
-                                Mail
-                              </Dropdown.Item>
-                              <Dropdown.Item
-                                onClick={() => {
-                                  navigate(`/master/driver/drivers/edit/${el?.user_id}`);
-                                }}
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: "8px",
-                                  padding: "8px 12px",
-                                  fontSize: "14px",
-                                }}
-                              >
-                                <MdMode size={18} />
-                                Edit
-                              </Dropdown.Item>
-                              <Dropdown.Item
-                                onClick={() => {
-                                  handleDelete(el.user_id);
-                                }}
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: "8px",
-                                  padding: "8px 12px",
-                                  fontSize: "14px",
-                                }}
-                              >
-                                <MdDelete size={18} />
-                                Delete
-                              </Dropdown.Item>
-                            </Stack>
-                          </Popover.Body>
-                        </Popover>
-                      }
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                mb={2}
+                mt={4}
+                alignItems="center"
+              >
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography sx={{ fontSize: "13px" }}>Show</Typography>
+                  <FormControl size="small">
+                    <Select
+                      sx={{ fontSize: "13px" }}
+                      open={selectOpen}
+                      onClose={handleSelectClose}
+                      onOpen={handleOpen}
+                      value={pageSize}
+                      onChange={handlePageSizeChange}
                     >
-                      <Dropdown.Toggle variant="light" id="dropdown-basic">
-                        <BsThreeDotsVertical />
-                      </Dropdown.Toggle>
-                    </OverlayTrigger>
-                  </Dropdown>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      ) : (
-        <div>
-          <Nodata />
-        </div>
-      )}
-    </Box>
-    <Box
-      style={{
-        backgroundColor: "#fff",
-        color: "#000",
-        padding: "0px",
-        borderTop: "0px",
-      }}
-    >
-      <div className="justify-content-between flex-wrap d-flex align-items-center">
-        <Typography className="footer-text" sx={{ fontSize: "14px" }}>
-          Showing {pageData?.from}-{pageData?.to} of {pageData?.total} entries
-        </Typography>
-        <Pagination
-          count={pageCount}
-          color="primary"
-          page={page}
-          onChange={handlePageChange}
-          variant="outlined"
-          shape="rounded"
-          renderItem={(item) => (
-            <PaginationItem
-              slots={{
-                previous: () => {
-                  return (
-                    <Typography sx={{ fontSize: "14px" }}>Previous</Typography>
-                  );
-                },
-                next: () => {
-                  return <Typography sx={{ fontSize: "14px" }}>Next</Typography>;
-                },
-              }}
-              {...item}
-            />
-          )}
-        />
-      </div>
-    </Box>
-  </CardContent>
-</Card>
+                      <MenuItem sx={{ fontSize: "13px" }} value={10}>
+                        10
+                      </MenuItem>
+                      <MenuItem sx={{ fontSize: "13px" }} value={25}>
+                        25
+                      </MenuItem>
+                      <MenuItem sx={{ fontSize: "13px" }} value={50}>
+                        50
+                      </MenuItem>
+                      <MenuItem sx={{ fontSize: "13px" }} value={100}>
+                        100
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                  <Typography sx={{ fontSize: "13px" }}>entries</Typography>
+                </Stack>
+                <Box>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <Typography sx={{ fontSize: "13px" }}>Search :</Typography>
+                    <FormControl size="small">
+                      <input
+                        sx={{
+                          fontSize: "13px",
+                          border: "1px solid",
+                          borderRadius: "10px",
+                        }}
+                        value={search}
+                        onChange={(event) => {
+                          setSearch(event.target.value);
+                        }}
+                      />
+                    </FormControl>
+                  </Stack>
+                </Box>
+              </Stack>
 
+              <Box sx={{ mt: 4, minHeight: "100%" }}>
+                {posts && posts.length !== 0 ? (
+                  <Table
+                    size="lg"
+                    sx={{
+                      width: "100%",
+                      margin: "0 auto",
+                      tableLayout: "fixed",
+                    }}
+                  >
+                    <thead
+                      style={{
+                        backgroundColor: "#FF7534",
+                        color: "#fff",
+                        padding: "10px",
+                      }}
+                    >
+                      <tr>
+                        {tablehead.map((el, id) => (
+                          <th
+                            key={id}
+                            style={{
+                              textAlign: "center",
+                              fontSize: "14px",
+                              padding: "8px",
+                              width: "auto",
+                            }}
+                          >
+                            {el}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {posts.map((el, id) => (
+                        <tr
+                          key={id}
+                          style={{
+                            fontSize: "14px",
+                            textAlign: "center",
+                            justifyItems: "center",
+                          }}
+                        >
+                          <td style={{ padding: "8px" }}>{id + 1}</td>
+                          <td
+                            style={{
+                              padding: "8px",
+                              cursor: "pointer",
+                              textAlign: "center",
+                            }}
+                            onClick={() => {
+                              navigate(`/master/driver/history/${el.id}`);
+                            }}
+                          >
+                            {el.user_name || "N/A"}
+                          </td>
+                          <td style={{ padding: "8px", textAlign: "center" }}>
+                            {el.email || "N/A"}
+                          </td>
+                          <td style={{ padding: "8px", textAlign: "center" }}>
+                            {el?.mobile || "N/A"}
+                          </td>
+                          <td
+                            style={{
+                              padding: "8px 12px",
+                              borderRadius: "8px",
+                              margin: "10px 10px",
+                              display: "inline-block", // Inline Flex to center the content
+                              alignItems: "center", // Vertical centering
+                              justifyContent: "center", // Horizontal centering
+                              textAlign: "center",
+                              width: "80px", // Adjust width for proper fit
+                              height: "40px", // Adjust height for proper fit
+                              backgroundColor:
+                                el?.status === 0
+                                  ? "#FFE5E5"
+                                  : el?.status === 1
+                                  ? "#E5F9E5"
+                                  : "#F2F2F2",
+                              color:
+                                el?.status === 0
+                                  ? "#FF0000"
+                                  : el?.status === 1
+                                  ? "#008000"
+                                  : "#6c757d",
+                              // marginTop: el?.status === 1 ? "10px" : "0",  // Add space before "Active"
+                            }}
+                          >
+                            <div
+                            // style={{
+                            //   display: "inline-block",  // To ensure the button stays within the content box
+                            //   width: "60px",  // Adjust width as needed
+                            //   height: "30px",  // Adjust height as needed
+                            //   textAlign: "center",  // Center text inside the button
+                            //   lineHeight: "30px",  // Vertically center text within the button
+                            //   borderRadius: "8px",
+                            //   backgroundColor: el?.status === 1 ? "#008000" : "#FF0000",  // Green for Active, Red for Deactive
+                            //   color: "white",
+                            //   fontWeight: "bold",
+                            //   cursor: "pointer",
+                            // }}
+                            >
+                              {el?.status === 0
+                                ? "Deactive"
+                                : el?.status === 1
+                                ? "Active"
+                                : "N/A"}
+                            </div>
+                          </td>
+
+                          <td style={{ padding: "8px" }}>
+                            <Dropdown>
+                              <OverlayTrigger
+                                rootClose
+                                trigger="click"
+                                placement="bottom"
+                                overlay={
+                                  <Popover id="popover-basic">
+                                    <Popover.Body style={{ padding: "10px" }}>
+                                      <Stack gap={2}>
+                                        <Dropdown.Item
+                                          onClick={() => {
+                                            navigate(
+                                              `/master/driver/drivers/view/${el.user_id}`
+                                            );
+                                          }}
+                                          style={{
+                                            display: "flex",
+                                            alignItems: "start",
+                                            gap: "8px",
+                                            padding: "3px",
+                                            fontSize: "14px",
+                                          }}
+                                        >
+                                          <MdRemoveRedEye size={18} />
+                                          View
+                                        </Dropdown.Item>
+                                        <Button
+                                          size="sm"
+                                          variant="success"
+                                          onClick={() =>
+                                            updateStatus(
+                                              el.user_id,
+                                              el?.status === 0 ? 1 : 0
+                                            )
+                                          }
+                                          style={{
+                                            display: "flex",
+                                            alignItems: "start",
+                                            justifyContent: "start",
+                                            gap: "8px",
+                                            width: "100%",
+                                            fontSize: "14px",
+                                            color:
+                                              el?.status === 0
+                                                ? "#008000"
+                                                : "#FF0000",
+                                            backgroundColor:
+                                              el?.status === 0
+                                                ? "#E5F9E5"
+                                                : "#FFE5E5",
+                                            borderColor: "#ccc",
+                                            padding: ".375rem .75rem",
+                                            borderRadius: ".2rem",
+                                          }}
+                                        >
+                                          {el?.status === 0
+                                            ? "Activate"
+                                            : "Deactivate"}
+                                        </Button>
+                                        <Dropdown.Item
+                                          onClick={() => {
+                                            handleDelete(el.user_id);
+                                          }}
+                                          style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "8px",
+                                            padding: "8px 12px",
+                                            fontSize: "14px",
+                                          }}
+                                        >
+                                          <TbMailFilled size={18} />
+                                          Mail
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          onClick={() => {
+                                            navigate(
+                                              `/master/driver/drivers/edit/${el?.user_id}`
+                                            );
+                                          }}
+                                          style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "8px",
+                                            padding: "8px 12px",
+                                            fontSize: "14px",
+                                          }}
+                                        >
+                                          <MdMode size={18} />
+                                          Edit
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          onClick={() => {
+                                            handleDelete(el.user_id);
+                                          }}
+                                          style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "8px",
+                                            padding: "8px 12px",
+                                            fontSize: "14px",
+                                          }}
+                                        >
+                                          <MdDelete size={18} />
+                                          Delete
+                                        </Dropdown.Item>
+                                      </Stack>
+                                    </Popover.Body>
+                                  </Popover>
+                                }
+                              >
+                                <Dropdown.Toggle
+                                  variant="light"
+                                  id="dropdown-basic"
+                                >
+                                  <BsThreeDotsVertical />
+                                </Dropdown.Toggle>
+                              </OverlayTrigger>
+                            </Dropdown>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                ) : (
+                  <div>
+                    <Nodata />
+                  </div>
+                )}
+              </Box>
+              <Box
+                style={{
+                  backgroundColor: "#fff",
+                  color: "#000",
+                  padding: "0px",
+                  borderTop: "0px",
+                }}
+              >
+                <div className="justify-content-between flex-wrap d-flex align-items-center">
+                  <Typography className="footer-text" sx={{ fontSize: "14px" }}>
+                    Showing {pageData?.from}-{pageData?.to} of {pageData?.total}{" "}
+                    entries
+                  </Typography>
+                  <Pagination
+                    count={pageCount}
+                    color="primary"
+                    page={page}
+                    onChange={handlePageChange}
+                    variant="outlined"
+                    shape="rounded"
+                    renderItem={(item) => (
+                      <PaginationItem
+                        slots={{
+                          previous: () => {
+                            return (
+                              <Typography sx={{ fontSize: "14px" }}>
+                                Previous
+                              </Typography>
+                            );
+                          },
+                          next: () => {
+                            return (
+                              <Typography sx={{ fontSize: "14px" }}>
+                                Next
+                              </Typography>
+                            );
+                          },
+                        }}
+                        {...item}
+                      />
+                    )}
+                  />
+                </div>
+              </Box>
+            </CardContent>
+          </Card>
         </>
       )}
     </di>

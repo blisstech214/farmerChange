@@ -136,7 +136,7 @@ const navConfig = [
       },
       {
         permission: "job-root",
-        title:"ProfileManagement",
+        title: "ProfileManagement",
         icon: <ImProfile size={16} />,
         path: "/farmer/cc/",
         children: [

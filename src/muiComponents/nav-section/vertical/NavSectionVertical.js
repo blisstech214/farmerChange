@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 // @mui
-import { List, Stack } from '@mui/material';
+import { List, Stack, Typography, Box } from "@mui/material";
 // locales
 // import { useLocales } from '../../../locales';
 //
-import { StyledSubheader } from './styles';
-import NavList from './NavList';
+import { StyledSubheader } from "./styles";
+import NavList from "./NavList";
 
 // ----------------------------------------------------------------------
 
@@ -18,27 +18,42 @@ export default function NavSectionVertical({ data, sx, ...other }) {
   // const { translate } = useLocales();
 
   return (
-    <Stack sx={sx} {...other}>
-      {data.map((group) => {
-        const key = group.subheader || group.items[0].title;
+    <Box>
+      {/* Header section */}
+      <Box sx={{ textAlign: "center", mb: 3 }}>
+        <Typography
+          variant="h4"
+          sx={{ fontWeight: 600, fontSize: { xs: "1.5rem", sm: "2rem" } }}
+        >
+          Admin
+        </Typography>
+      </Box>
 
-        return (
-          <List key={key} disablePadding sx={{ px: 2 }}>
-            {group.subheader && (
-              <StyledSubheader disableSticky>{group.subheader}</StyledSubheader>
-            )}
+      {/* Nav section */}
+      <Stack sx={sx} {...other}>
+        {data.map((group) => {
+          const key = group.subheader || group.items[0].title;
 
-            {group.items.map((list) => (
-              <NavList
-                key={list.title + list.path}
-                data={list}
-                depth={1}
-                hasChild={!!list.children}
-              />
-            ))}
-          </List>
-        );
-      })}
-    </Stack>
+          return (
+            <List key={key} disablePadding sx={{ px: 2 }}>
+              {group.subheader && (
+                <StyledSubheader disableSticky>
+                  {group.subheader}
+                </StyledSubheader>
+              )}
+
+              {group.items.map((list) => (
+                <NavList
+                  key={list.title + list.path}
+                  data={list}
+                  depth={1}
+                  hasChild={!!list.children}
+                />
+              ))}
+            </List>
+          );
+        })}
+      </Stack>
+    </Box>
   );
 }

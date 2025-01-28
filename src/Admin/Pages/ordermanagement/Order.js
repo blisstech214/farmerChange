@@ -59,6 +59,7 @@ const Contant = () => {
     "Email",
     "Contact No",
     "Order Details",
+  
   ];
   const [search, setSearch] = useState("");
 
@@ -183,121 +184,114 @@ const Contant = () => {
         <>
           <CustomSnackbar value={snackData} />
           <Card
-            sx={{
-              boxShadow: "none!important",
-              borderRadius: "20px!important",
-              mt: 4,
-              // margin: "20px 100px",
+  sx={{
+    boxShadow: "none!important",
+    borderRadius: "20px!important",
+    mt: 4,
+    // margin: "20px 100px",
+  }}
+>
+  <CardContent>
+  
+    <Box sx={{ mt: 4, minHeight: "100%" }}>
+      {posts && posts.length !== 0 ? (
+        <Table
+          size="lg"
+          sx={{
+            width: "100%",
+            margin: "0 auto",
+            tableLayout: "fixed",
+          
+          }}
+        >
+          <thead
+            style={{
+              backgroundColor: "#FF7534",
+              color: "#fff",
+              padding: "10px",
             }}
           >
-            <CardContent>
-              <Box sx={{ mt: 4, minHeight: "100%" }}>
-                {posts && posts.length !== 0 ? (
-                  <Table
-                    size="lg"
-                    sx={{
-                      width: "100%",
-                      margin: "0 auto",
-                      tableLayout: "fixed",
-                    }}
-                  >
-                    <thead
-                      style={{
-                        backgroundColor: "#FF7534",
-                        color: "#fff",
-                        padding: "10px",
-                      }}
-                    >
-                      <tr>
-                        {tablehead.map((el, id) => (
-                          <th
-                            key={id}
-                            style={{
-                              textAlign: "center",
-                              fontSize: "14px",
-                              padding: "8px",
-                              width: "auto",
-                            }}
-                          >
-                            {el}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {posts.map((el, id) => (
-                        <tr
-                          key={id}
-                          style={{
-                            fontSize: "14px",
-                            textAlign: "center",
-                            justifyItems: "center",
-                          }}
-                        >
-                          <td style={{ padding: "8px" }}>{id + 1}</td>
-                          <td
-                            style={{
-                              padding: "8px",
-                              cursor: "pointer",
-                              textAlign: "center",
-                            }}
-                            onClick={() => {
-                              navigate(`/master/driver/history/${el.id}`);
-                            }}
-                          >
-                            {el.user_name || "N/A"}
-                          </td>
-                          <td style={{ padding: "8px", textAlign: "center" }}>
-                            {el.email || "N/A"}
-                          </td>
-                          <td style={{ padding: "8px", textAlign: "center" }}>
-                            {el?.mobile || "N/A"}
-                          </td>
-                          <td
-                            style={{
-                              padding: "8px 12px",
-                              borderRadius: "8px",
-                              margin: "10px 10px",
-                              display: "inline-block", // Inline Flex to center the content
-                              alignItems: "center", // Vertical centering
-                              justifyContent: "center", // Horizontal centering
-                              textAlign: "center",
-                              width: "80px", // Adjust width for proper fit
-                              height: "40px", // Adjust height for proper fit
-                              backgroundColor: "#FF753314",
-                              color: "#FF7533",
-                              transition: "all 0.3s ease", // Smooth transition for hover effect
-                            }}
-                            onMouseEnter={(e) => {
-                              e.target.style.backgroundColor = "#FF7533"; // Change background on hover
-                              e.target.style.color = "#fff"; // Change text color on hover
-                            }}
-                            onMouseLeave={(e) => {
-                              e.target.style.backgroundColor = "#FF753314"; // Revert background
-                              e.target.style.color = "#FF7533"; // Revert text color
-                            }}
-                          >
-                            View
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                ) : (
-                  <div>
-                    <Nodata />
-                  </div>
-                )}
-              </Box>
-              <Box
-                style={{
-                  backgroundColor: "#fff",
-                  color: "#000",
-                  padding: "0px",
-                  borderTop: "0px",
-                }}
-              >
-                {/* <div className="justify-content-between flex-wrap d-flex align-items-center">
+            <tr>
+              {tablehead.map((el, id) => (
+                <th
+                  key={id}
+                  style={{
+                    textAlign: "center",
+                    fontSize: "14px",
+                    padding: "8px",
+                    width: "auto",
+                  }}
+                >
+                  {el}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {posts.map((el, id) => (
+              <tr key={id} style={{ fontSize: "14px", textAlign: "center" ,justifyItems:"center"}}>
+                <td style={{ padding: "8px" }}>{id + 1}</td>
+                <td
+                  style={{
+                    padding: "8px",
+                    cursor: "pointer",
+                    textAlign: "center",
+                  }}
+                  onClick={() => {
+                    navigate(`/master/driver/history/${el.id}`);
+                  }}
+                >
+                  {el.user_name || "N/A"}
+                </td>
+                <td style={{ padding: "8px" ,  textAlign: "center", }}>{el.email || "N/A"}</td>
+                <td style={{ padding: "8px" ,  textAlign: "center", }}>{el?.mobile || "N/A"}</td>
+                <td
+  style={{
+    padding: "8px 12px",
+    borderRadius: "8px",
+    margin: "10px 10px",
+    display: "inline-block", // Inline Flex to center the content
+    alignItems: "center", // Vertical centering
+    justifyContent: "center", // Horizontal centering
+    textAlign: "center",
+    width: "80px", // Adjust width for proper fit
+    height: "40px", // Adjust height for proper fit
+    backgroundColor: "#FF753314",
+    color: "#FF7533",
+    transition: "all 0.3s ease", // Smooth transition for hover effect
+  }}
+  onMouseEnter={(e) => {
+    e.target.style.backgroundColor = "#FF7533"; // Change background on hover
+    e.target.style.color = "#fff"; // Change text color on hover
+  }}
+  onMouseLeave={(e) => {
+    e.target.style.backgroundColor = "#FF753314"; // Revert background
+    e.target.style.color = "#FF7533"; // Revert text color
+  }}
+>
+  View
+</td>
+
+
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : (
+        <div>
+          <Nodata />
+        </div>
+      )}
+    </Box>
+    <Box
+      style={{
+        backgroundColor: "#fff",
+        color: "#000",
+        padding: "0px",
+        borderTop: "0px",
+      }}
+    >
+      {/* <div className="justify-content-between flex-wrap d-flex align-items-center">
         <Typography className="footer-text" sx={{ fontSize: "14px" }}>
           Showing {pageData?.from}-{pageData?.to} of {pageData?.total} entries
         </Typography>
@@ -325,9 +319,10 @@ const Contant = () => {
           )}
         />
       </div> */}
-              </Box>
-            </CardContent>
-          </Card>
+    </Box>
+  </CardContent>
+</Card>
+
         </>
       )}
     </di>
